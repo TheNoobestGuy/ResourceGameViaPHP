@@ -11,16 +11,16 @@ buttonPlayers4 = document.getElementById('buttonPlayers4');
 
 // Handle click of buttons
 buttonPlayers2.addEventListener('click', function(event) {
-    window.location.href = `http://localhost/Resources/Resources.php?players=2&round=0`;
+    window.location.href = `http://localhost/Resources/Resources.php?players=2&round=1`;
     sessionStorage.setItem('redirected', 'true');
 });
 
 buttonPlayers3.addEventListener('click', function(event) {
-    window.location.href = `http://localhost/Resources/Resources.php?players=3&round=0`;
+    window.location.href = `http://localhost/Resources/Resources.php?players=3&round=1`;
     sessionStorage.setItem('redirected', 'true');
 });
 
 buttonPlayers4.addEventListener('click', function(event) {
-    window.location.href = `http://localhost/Resources/Resources.php?players=4&round=0`;
+    window.location.href = `http://localhost/Resources/Resources.php?players=4&round=1`;
     sessionStorage.setItem('redirected', 'true');
 });

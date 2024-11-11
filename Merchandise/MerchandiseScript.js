@@ -148,7 +148,7 @@ woodenTableValueInput.addEventListener('input', function(event) {
     let metalNegativeValue = metalAmount < 0 ? true : false;
 
     if (woodNegativeValue || stoneNegativeValue || metalNegativeValue) {
-        resourcesNegativeError = false;
+        resourcesNegativeError = true;
         negativeResources.style.display = 'block';
     }
 });
@@ -243,7 +243,7 @@ marbleTableValueInput.addEventListener('input', function(event) {
     let metalNegativeValue = metalAmount < 0 ? true : false;
 
     if (woodNegativeValue || stoneNegativeValue || metalNegativeValue) {
-        resourcesNegativeError = false;
+        resourcesNegativeError = true;
         negativeResources.style.display = 'block';
     }
 });
@@ -337,7 +337,7 @@ chandelierValueInput.addEventListener('input', function(event) {
     let metalNegativeValue = metalAmount < 0 ? true : false;
 
     if (woodNegativeValue || stoneNegativeValue || metalNegativeValue) {
-        resourcesNegativeError = false;
+        resourcesNegativeError = true;
         negativeResources.style.display = 'block';
     }
 });
@@ -366,13 +366,8 @@ submitButton.addEventListener('click', function(event) {
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.send(JSON.stringify({ playersData: playersData, goodsData: goodsData }));
 
-        // Switch pages
-        if (roundsAmount >= 5) {
-            window.location.href = `http://localhost/EndGame/EndGame.php?players=${playersAmount}`;
-        }
-        else {
-            window.location.href = `http://localhost/Trade/Trade.php?players=${playersAmount}&round=${roundsAmount}`;
-        }
+        // Switch page
+        window.location.href = `http://localhost/Trade/Trade.php?players=${playersAmount}&round=${roundsAmount}`;
     
         sessionStorage.setItem('redirected', 'true');
         return;

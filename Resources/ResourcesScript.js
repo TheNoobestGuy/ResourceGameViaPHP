@@ -66,7 +66,7 @@ function createString(typedText) {
 
 // Wood input
 let woodInputLenght = 0;
-let woodMoneyInputBuffor = 0;
+let woodInputBuffor = 0;
 
 woodValueInput.addEventListener('input', function(event) {
     let typedText = mustBeNumber(woodValueInput.value.split(''));
@@ -81,17 +81,19 @@ woodValueInput.addEventListener('input', function(event) {
     
     // Go back to previous value
     if (woodInputLenght > typedText.length) {
-        let moneyEquation = woodMoneyInputBuffor - value;
+        let moneyEquation = woodInputBuffor - value;
         let moneyAddition = Number(moneyEquation * resourcesData[0].Cost)
         let moneyResult = Number(playersData[player].Money + moneyAddition);
-        woodMoneyInputBuffor = value;
-
+        
         playerMoney.innerHTML = `${moneyResult}$`;
         playersData[player].Money = moneyResult;
-        
-        playerWood.innerHTML = `${value}`;
-        playersData[player].Wood = value;
 
+        let woodAmount = Number(playersData[player].Wood - woodInputBuffor + value);
+        playerWood.innerHTML = `${woodAmount}`;
+        playersData[player].Wood = woodAmount;
+
+        woodInputBuffor = value;
+        woodMoneyInputBuffor = value;
         woodInputLenght--;
 
         // Remove money error
@@ -109,17 +111,18 @@ woodValueInput.addEventListener('input', function(event) {
 
     // Convert text to int and use it to calculate resources and money
     let moneySubtract = Number(value * resourcesData[0].Cost);
-    let moneyAddition = Number(woodMoneyInputBuffor * resourcesData[0].Cost);
+    let moneyAddition = Number(woodInputBuffor * resourcesData[0].Cost);
     let moneyResult = Number(playersData[player].Money - moneySubtract + moneyAddition);
-    woodMoneyInputBuffor = value;
-
-    woodInputLenght++;
+    let woodAmount = Number(playersData[player].Wood - woodInputBuffor + value);
 
     playerMoney.innerHTML = `${moneyResult}$`;
-    playerWood.innerHTML = `${value}`;
+    playerWood.innerHTML = `${woodAmount}`;
 
     playersData[player].Money = moneyResult;
-    playersData[player].Wood = value;
+    playersData[player].Wood = woodAmount;
+
+    woodInputBuffor = value;
+    woodInputLenght++;
 
     // Check for negative money error
     if (moneyResult < 0) {
@@ -130,6 +133,7 @@ woodValueInput.addEventListener('input', function(event) {
 
 // Stone input
 let stoneInputLenght = 0;
+let stoneInputBuffor = 0;
 let stoneMoneyInputBuffor = 0;
 
 stoneValueInput.addEventListener('input', function(event) {
@@ -145,17 +149,19 @@ stoneValueInput.addEventListener('input', function(event) {
 
     // Go back to previous value
     if (stoneInputLenght > typedText.length) {
-        let moneyEquation = stoneMoneyInputBuffor - value;
-        let moneyAddition = Number(moneyEquation * resourcesData[0].Cost)
+        let moneyEquation = stoneInputBuffor - value;
+        let moneyAddition = Number(moneyEquation * resourcesData[1].Cost)
         let moneyResult = Number(playersData[player].Money + moneyAddition);
-        stoneMoneyInputBuffor = value;
 
         playerMoney.innerHTML = `${moneyResult}$`;
         playersData[player].Money = moneyResult;
         
-        playerStone.innerHTML = `${value}`;
-        playersData[player].Stone = value;
+        let stoneAmount = Number(playersData[player].Stone - stoneInputBuffor + value);
+        playerStone.innerHTML = `${stoneAmount}`;
+        playersData[player].Stone = stoneAmount;
 
+        stoneInputBuffor = value;
+        stoneMoneyInputBuffor = value;
         stoneInputLenght--;
 
         // Remove money error
@@ -172,18 +178,19 @@ stoneValueInput.addEventListener('input', function(event) {
     }
 
     // Convert text to int and use it to calculate resources and money
-    let moneySubtract = Number(value * resourcesData[0].Cost);
-    let moneyAddition = Number(stoneMoneyInputBuffor * resourcesData[0].Cost);
+    let moneySubtract = Number(value * resourcesData[1].Cost);
+    let moneyAddition = Number(stoneInputBuffor * resourcesData[1].Cost);
     let moneyResult = Number(playersData[player].Money - moneySubtract + moneyAddition);
-    stoneMoneyInputBuffor = value;
-
-    stoneInputLenght++;
+    let stoneAmount = Number(playersData[player].Stone - stoneInputBuffor + value);
 
     playerMoney.innerHTML = `${moneyResult}$`;
-    playerStone.innerHTML = `${value}`;
+    playerStone.innerHTML = `${stoneAmount}`;
 
     playersData[player].Money = moneyResult;
-    playersData[player].Stone = value;
+    playersData[player].Stone = stoneAmount;
+
+    stoneInputBuffor = value;
+    stoneInputLenght++;
 
     // Check for negative money error
     if (moneyResult < 0) {
@@ -194,7 +201,7 @@ stoneValueInput.addEventListener('input', function(event) {
 
 // Metal input
 let metalInputLenght = 0;
-let metalMoneyInputBuffor = 0;
+let metalInputBuffor = 0;
 
 metalValueInput.addEventListener('input', function(event) {
     let typedText = mustBeNumber(metalValueInput.value.split(''));
@@ -209,17 +216,18 @@ metalValueInput.addEventListener('input', function(event) {
 
     // Go back to previous value
     if (metalInputLenght > typedText.length) {
-        let moneyEquation = metalMoneyInputBuffor - value;
-        let moneyAddition = Number(moneyEquation * resourcesData[0].Cost)
+        let moneyEquation = metalInputBuffor - value;
+        let moneyAddition = Number(moneyEquation * resourcesData[2].Cost)
         let moneyResult = Number(playersData[player].Money + moneyAddition);
-        metalMoneyInputBuffor = value;
 
         playerMoney.innerHTML = `${moneyResult}$`;
         playersData[player].Money = moneyResult;
         
-        playerMetal.innerHTML = `${value}`;
-        playersData[player].Metal = value;
+        let metalAmount = Number(playersData[player].Metal - metalInputBuffor + value);
+        playerMetal.innerHTML = `${metalAmount}`;
+        playersData[player].Metal = metalAmount;
 
+        metalInputBuffor = value;
         metalInputLenght--;
 
         // Remove money error
@@ -236,18 +244,19 @@ metalValueInput.addEventListener('input', function(event) {
     }
 
     // Convert text to int and use it to calculate resources and money
-    let moneySubtract = Number(value * resourcesData[0].Cost);
-    let moneyAddition = Number(metalMoneyInputBuffor * resourcesData[0].Cost);
+    let moneySubtract = Number(value * resourcesData[2].Cost);
+    let moneyAddition = Number(metalInputBuffor * resourcesData[2].Cost);
     let moneyResult = Number(playersData[player].Money - moneySubtract + moneyAddition);
-    metalMoneyInputBuffor = value;
-
-    metalInputLenght++;
+    let metalAmount = Number(playersData[player].Metal - metalInputBuffor + value);
 
     playerMoney.innerHTML = `${moneyResult}$`;
-    playerMetal.innerHTML = `${value}`;
+    playerMetal.innerHTML = `${metalAmount}`;
 
     playersData[player].Money = moneyResult;
-    playersData[player].Metal = value;
+    playersData[player].Metal = metalAmount;
+
+    metalInputBuffor = value;
+    metalInputLenght++;
 
     // Check for negative money error
     if (moneyResult < 0) {
@@ -298,14 +307,14 @@ submitButton.addEventListener('click', function(event) {
     moneyIsNegative = false;
 
     // Reset variables
-    woodInputLenght = 1;
-    woodMoneyInputBuffor = 0;
+    woodInputLenght = 0;
+    woodInputBuffor = 0;
 
-    stoneInputLenght = 1;
-    stoneMoneyInputBuffor = 0;
+    stoneInputLenght = 0;
+    stoneInputBuffor = 0;
 
-    metalInputLenght = 1;
-    metalMoneyInputBuffor = 0;
+    metalInputLenght = 0;
+    metalInputBuffor = 0;
 
     // Clear inputs
     woodValueInput.value = "";
