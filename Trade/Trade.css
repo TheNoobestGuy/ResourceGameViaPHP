@@ -1,0 +1,40 @@
+html, body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-align: center;
+    justify-content: center;
+    font-family: Georgia, 'Times New Roman', Times, serif
+}
+
+#title {
+    margin-bottom: 2%;
+}
+
+.tables {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 1%;
+}
+
+.tables table {
+    display: inline-block;
+    border-collapse: collapse;
+}
+
+.tables table tr th, td {
+    width: 100px;
+    border: 1px solid #333;
+    padding: 8px;
+    text-align: center;
+    background-color: white;
+}
+
+#submit {
+    margin-top: 1%;
+    background-color: darkblue;
+    color: white;
+    border-radius: 5px;
+    padding: 10px;
+}

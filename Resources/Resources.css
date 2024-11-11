@@ -1,0 +1,85 @@
+html, body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-align: center;
+    justify-content: center;
+    font-family: Georgia, 'Times New Roman', Times, serif
+}
+
+#title {
+    margin-bottom: 1%;
+}
+
+.tables {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 1%;
+}
+
+.tables div {
+    display: inline-block;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.tables div table {
+    display: flex;
+    border-collapse: collapse;
+}
+
+.tables div table tr th, td {
+    width: 120px;
+    border: 1px solid #333;
+    padding: 8px;
+    text-align: center;
+    background-color: white;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1%;
+    align-items: center;
+}
+
+.menu div {
+    display: flex;
+    padding: 1%;
+    flex-direction: row;
+    align-items: center;
+    text-align: right;
+}
+
+.menu div label {
+    margin-right: 1%;
+    margin-left: 1%;
+    width: 50px;
+    margin-right: 20px;
+}
+
+#submit {
+    margin-top: 1%;
+    background-color: darkblue;
+    color: white;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.error {
+    display: block;
+    color: red;
+    font-weight: bold;
+}
+
+#errorNegativeMoney {
+    display: none;
+}
+
+input {
+    text-align: center;
+    width: 90px;
+    height: 14px;
+    padding: 4px;
+}

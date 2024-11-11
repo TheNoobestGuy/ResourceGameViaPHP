@@ -1,0 +1,28 @@
+html, body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-align: center;
+    justify-content: center;
+    font-family: Georgia, 'Times New Roman', Times, serif
+}
+
+.menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu li {
+    display: inline-block;
+    margin-left: 0.25%;
+    margin-right: 0.25%;
+}
+
+.menu li button {
+    background-color: darkblue;
+    color: white;
+    border-radius: 5px;
+    padding: 10px;
+}

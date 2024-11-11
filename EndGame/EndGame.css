@@ -1,0 +1,26 @@
+html, body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-align: center;
+    justify-content: center;
+    font-family: Georgia, 'Times New Roman', Times, serif
+}
+
+#title {
+    margin-bottom: 2%;
+}
+
+.podium {
+    width: 100%;
+    display: inline-block;
+}
+
+#submit {
+    margin-top: 1%;
+    background-color: darkblue;
+    color: white;
+    border-radius: 5px;
+    padding: 10px;
+}
