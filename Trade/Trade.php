@@ -10,6 +10,7 @@
 </head>
 
 <?php include '../Includes/Header.php'; ?>
+<?php include '../ShareDatabase.php'; ?>
 
 <body>
     <?php include '../ShareDatabase.php'; ?>

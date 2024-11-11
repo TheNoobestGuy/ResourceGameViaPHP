@@ -10,9 +10,9 @@
 </head>
 
 <?php include '../Includes/Header.php'; ?>
+<?php include '../ShareDatabase.php'; ?>
 
 <body>
-    <?php include '../ShareDatabase.php'; ?>
     <h2 id="title">Plan and buy some resources! Next you are going to trade them for some goods!</h2>
 
     <div class=tables>

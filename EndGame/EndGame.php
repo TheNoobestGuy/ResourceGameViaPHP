@@ -10,32 +10,30 @@
 </head>
 
 <?php include '../Includes/Header.php'; ?>
+<?php include '../ShareDatabase.php'; ?>
+<?php
+    // Sort winners array and extract them
+    $winnersArray = [];
+    $index = 1;
+    while(count($playersData) > 1) {
+        $playerBuffor = [0, 0];
+        $index = 0;
+    
+        for ($i = 0; $i < count($playersData); $i++) {
+            if ($playersData[$i]['Money'] >= $playerBuffor[1]) {
+                $playerBuffor[0] = (int)$playersData[$i]['ID'];
+                $playerBuffor[1] = (int)$playersData[$i]['Money'];
+                $index = $i;
+            }
+        }
+        
+        array_splice($playersData, $index, 1);
+        array_push($winnersArray, $playerBuffor);
+        $index++;
+    }
+?>
 
 <body>
-    <?php include '../ShareDatabase.php'; ?>
-
-    <?php
-        // Sort winners array and extract them
-        $winnersArray = [];
-        $index = 1;
-        while(count($playersData) > 1) {
-            $playerBuffor = [0, 0];
-            $index = 0;
-        
-            for ($i = 0; $i < count($playersData); $i++) {
-                if ($playersData[$i]['Money'] >= $playerBuffor[1]) {
-                    $playerBuffor[0] = (int)$playersData[$i]['ID'];
-                    $playerBuffor[1] = (int)$playersData[$i]['Money'];
-                    $index = $i;
-                }
-            }
-            
-            array_splice($playersData, $index, 1);
-            array_push($winnersArray, $playerBuffor);
-            $index++;
-        }
-    ?>
-    
     <h2 id="title">Congratulations! This time the winners are:</h2>
 
     <div id="podiumForTwoPlayers" class="podium">
@@ -89,7 +87,7 @@
         </div>
     </div>
 
-    <button id="submit">Start again</button>
+    <button id="submit">Play again</button>
     
     <script src="../EndGame/EndGame.js"></script>
 </body>

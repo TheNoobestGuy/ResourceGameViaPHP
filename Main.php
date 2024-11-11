@@ -36,7 +36,7 @@
 
 <body>
     <h2>Welcome to resource game created via PHP!</h2>
-    <p>Select how many players u want to have in game! Game ends after qfive full rounds!</p>
+    <p>Select how many players u want to have in game! Game ends after five full rounds!</p>
     
     <ul class="menu">
         <li>

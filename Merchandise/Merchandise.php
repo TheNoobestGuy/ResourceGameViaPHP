@@ -10,9 +10,9 @@
 </head>
 
 <?php include '../Includes/Header.php'; ?>
+<?php include '../ShareDatabase.php'; ?>
 
 <body>
-    <?php include '../ShareDatabase.php'; ?>
     <h2 id="title">Trade your resources on some goods to sell them later!</h2>
 
     <h2 id ="playerName">Player <?php echo $playersData[0]['ID']; ?></h2>
