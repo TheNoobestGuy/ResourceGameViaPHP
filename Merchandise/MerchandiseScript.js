@@ -3,7 +3,7 @@ if (sessionStorage.getItem('redirected')) {
     location.reload();
     sessionStorage.removeItem('redirected');
 }
-
+console.log(playersAmount);
 // Player
 let player = 0;
 let playerName = document.getElementById('playerName');
@@ -366,8 +366,14 @@ submitButton.addEventListener('click', function(event) {
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.send(JSON.stringify({ playersData: playersData, goodsData: goodsData }));
 
-        // Switch page
-        window.location.href = `http://localhost/Trade/Trade.php?players=${playersAmount}&round=${roundsAmount}`;
+        // Switch pages
+        if (roundsAmount >= 5) {
+            window.location.href = `http://localhost/EndGame/EndGame.php?players=${playersAmount}`;
+        }
+        else {
+            window.location.href = `http://localhost/Trade/Trade.php?players=${playersAmount}&round=${roundsAmount}`;
+        }
+    
         sessionStorage.setItem('redirected', 'true');
         return;
     }

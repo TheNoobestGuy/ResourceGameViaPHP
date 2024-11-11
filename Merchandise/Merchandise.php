@@ -48,7 +48,7 @@
             $stmt->execute();
             $goodsData = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            // Export data bases
+            // Export databases
             echo "<script>let playersAmount = " . (int)$players . ";</script>";
             echo "<script>let roundsAmount = " . (int)$round . ";</script>";
             echo "<script>let playersData = " . json_encode($playersData) . ";</script>";

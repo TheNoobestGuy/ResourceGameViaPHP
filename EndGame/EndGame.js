@@ -4,6 +4,16 @@ if (sessionStorage.getItem('redirected')) {
     sessionStorage.removeItem('redirected');
 }
 
+// Display appropriate podium
+podiumForTwoPlayers = document.getElementById('podiumForTwoPlayers');
+podiumForThreePlayers = document.getElementById('podiumForThreePlayers');
+
+if (playersAmount <= 2) {
+    podiumForTwoPlayers.style.display = 'flex';
+} else {
+    podiumForThreePlayers.style.display = 'flex';
+}
+
 // Handle submit button
 submitButton = document.getElementById('submit');
 
