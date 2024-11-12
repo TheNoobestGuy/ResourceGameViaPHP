@@ -83,15 +83,15 @@
     <div class="menu">
         <div>
             <label>Wooden table:</label>
-            <input type="text" id="woodenTableValue" placeholder="Type value"/>
+            <input type="text" id="woodenTableValue" autocomplete="off" placeholder="Type value"/>
         </div>
         <div>
             <label>Marble Table:</label>
-            <input type="text" id="marbleTableValue" placeholder="Type value"/>
+            <input type="text" id="marbleTableValue" autocomplete="off" placeholder="Type value"/>
         </div>
         <div>
             <label>Chandelier:</label>
-            <input type="text" id="chandelierValue" placeholder="Type value"/>
+            <input type="text" id="chandelierValue" autocomplete="off" placeholder="Type value"/>
         </div>
     </div>
 

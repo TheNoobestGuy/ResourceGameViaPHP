@@ -107,15 +107,15 @@
     <div class="menu">
         <div>
             <label>Wood:</label>
-            <input type="text" id="woodValue" placeholder="Type value"/>
+            <input type="text" id="woodValue" autocomplete="off" placeholder="Type value"/>
         </div>
         <div>
             <label>Stone:</label>
-            <input type="text" id="stoneValue" placeholder="Type value"/>
+            <input type="text" id="stoneValue" autocomplete="off" placeholder="Type value"/>
         </div>
         <div>
             <label>Metal:</label>
-            <input type="text" id="metalValue" placeholder="Type value"/>
+            <input type="text" id="metalValue" autocomplete="off" placeholder="Type value"/>
         </div>
     </div>
     
