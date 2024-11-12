@@ -12,6 +12,7 @@ html, body {
     margin-bottom: 1%;
 }
 
+/* Tables */
 .tables {
     display: inline-block;
     width: 100%;
@@ -37,6 +38,7 @@ html, body {
     background-color: white;
 }
 
+/* Menu */
 .menu {
     display: flex;
     flex-direction: column;
@@ -59,12 +61,29 @@ html, body {
     margin-right: 20px;
 }
 
-#submit {
-    margin-top: 1%;
+/* Buttons */
+.playerNameBox {
+    display: flex;
+    flex-direction: row;
+    justify-self: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.playerNameBox h2 {
+    display: block;
+    width: 150px;
+}
+
+.button {
     background-color: darkblue;
     color: white;
     border-radius: 5px;
     padding: 10px;
+}
+
+#submit {
+    margin-top: 1%;
 }
 
 .error {

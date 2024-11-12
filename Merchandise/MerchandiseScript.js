@@ -3,7 +3,7 @@ if (sessionStorage.getItem('redirected')) {
     location.reload();
     sessionStorage.removeItem('redirected');
 }
-console.log(playersAmount);
+
 // Player
 let player = 0;
 let playerName = document.getElementById('playerName');
@@ -340,6 +340,88 @@ chandelierValueInput.addEventListener('input', function(event) {
         resourcesNegativeError = true;
         negativeResources.style.display = 'block';
     }
+});
+
+// Change player on back and forward buttons
+let backbutton = document.getElementById('back');
+let forwardbutton = document.getElementById('forward');
+
+backbutton.addEventListener('click', function(event) {
+    // Check does function would overleap 0
+    if (player - 1 < 0) {
+        return;
+    }
+
+    // Check for error
+    if (resourcesNegativeError) {
+        return;
+    }
+
+    // Update database and switch page
+    player--;
+
+    // Update page
+    playerName.innerHTML = `Player ${playersData[player].ID}`;
+    playerWood.innerHTML = `${playersData[player].Wood}`;
+    playerStone.innerHTML = `${playersData[player].Stone}`;
+    playerMetal.innerHTML = `${playersData[player].Metal}`;
+
+    // Reset error
+    resourcesNegativeError = false;
+
+    // Reset buffors
+    woodenTableInputLength = 1;
+    woodenTableValueBuffor = 0;
+
+    marbleTableInputLength = 1;
+    marbleTableValueBuffor = 0;
+
+    chandelierInputLength = 1;
+    chandelierValueBuffor = 0;
+
+    // Clear inputs
+    woodenTableValueInput.value = "";
+    marbleTableValueInput.value = "";
+    chandelierValueInput.value = "";
+});
+
+forwardbutton.addEventListener('click', function(event) {
+    // Check does function would overleap the player limit
+    if (player + 1 > playersAmount - 1) {
+        return;
+    }
+
+    // Check for error
+    if (resourcesNegativeError) {
+        return;
+    }
+    
+    // Update database and switch page
+    player++;
+
+    // Update page
+    playerName.innerHTML = `Player ${playersData[player].ID}`;
+    playerWood.innerHTML = `${playersData[player].Wood}`;
+    playerStone.innerHTML = `${playersData[player].Stone}`;
+    playerMetal.innerHTML = `${playersData[player].Metal}`;
+
+    // Reset error
+    resourcesNegativeError = false;
+
+    // Reset buffors
+    woodenTableInputLength = 1;
+    woodenTableValueBuffor = 0;
+
+    marbleTableInputLength = 1;
+    marbleTableValueBuffor = 0;
+
+    chandelierInputLength = 1;
+    chandelierValueBuffor = 0;
+
+    // Clear inputs
+    woodenTableValueInput.value = "";
+    marbleTableValueInput.value = "";
+    chandelierValueInput.value = "";
 });
 
 // Change player on click of submit

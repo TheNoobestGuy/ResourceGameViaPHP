@@ -126,7 +126,7 @@ woodValueInput.addEventListener('input', function(event) {
 
     // Check for negative money error
     if (moneyResult < 0) {
-        moneyIsNegative = false;
+        moneyIsNegative = true;
         errorNegativeMoney.style.display = 'block';
     } 
 });
@@ -263,6 +263,90 @@ metalValueInput.addEventListener('input', function(event) {
         moneyIsNegative = true;
         errorNegativeMoney.style.display = 'block';
     } 
+});
+
+// Change player on back and forward buttons
+let backbutton = document.getElementById('back');
+let forwardbutton = document.getElementById('forward');
+
+backbutton.addEventListener('click', function(event) {
+    // Check does function would overleap 0
+    if (player - 1 < 0) {
+        return;
+    }
+
+    // Check for error
+    if (moneyIsNegative) {
+        return;
+    }
+
+    // Update database and switch page
+    player--;
+
+    // Update page
+    playerName.innerHTML = `Player ${playersData[player].ID}`;
+    playerMoney.innerHTML = `${playersData[player].Money}$`;
+    playerWood.innerHTML = `${playersData[player].Wood}`;
+    playerStone.innerHTML = `${playersData[player].Stone}`;
+    playerMetal.innerHTML = `${playersData[player].Metal}`;
+
+    // Reset error
+    moneyIsNegative = false;
+
+    // Reset variables
+    woodInputLenght = 0;
+    woodInputBuffor = 0;
+
+    stoneInputLenght = 0;
+    stoneInputBuffor = 0;
+
+    metalInputLenght = 0;
+    metalInputBuffor = 0;
+
+    // Clear inputs
+    woodValueInput.value = "";
+    stoneValueInput.value = "";
+    metalValueInput.value = "";
+});
+
+forwardbutton.addEventListener('click', function(event) {
+    // Check does function would overleap the player limit
+    if (player + 1 > playersAmount - 1) {
+        return;
+    }
+
+    // Check for error
+    if (moneyIsNegative) {
+        return;
+    }
+    
+    // Update database and switch page
+    player++;
+
+    // Update page
+    playerName.innerHTML = `Player ${playersData[player].ID}`;
+    playerMoney.innerHTML = `${playersData[player].Money}$`;
+    playerWood.innerHTML = `${playersData[player].Wood}`;
+    playerStone.innerHTML = `${playersData[player].Stone}`;
+    playerMetal.innerHTML = `${playersData[player].Metal}`;
+
+    // Reset error
+    moneyIsNegative = false;
+
+    // Reset variables
+    woodInputLenght = 0;
+    woodInputBuffor = 0;
+
+    stoneInputLenght = 0;
+    stoneInputBuffor = 0;
+
+    metalInputLenght = 0;
+    metalInputBuffor = 0;
+
+    // Clear inputs
+    woodValueInput.value = "";
+    stoneValueInput.value = "";
+    metalValueInput.value = "";
 });
 
 // Change player on click of submit

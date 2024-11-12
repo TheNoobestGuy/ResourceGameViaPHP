@@ -93,7 +93,12 @@
         </div>
     </div>
 
-    <h2 id ="playerName">Player <?php echo $playersData[0]['ID']; ?></h2>
+    <div class="playerNameBox">
+        <button class="button" id="back"><</button>
+        <h2 id ="playerName">Player <?php echo $playersData[0]['ID']; ?></h2>
+        <button class="button" id="forward">></button>
+    </div>
+
     <h2>Your money:</h2>
     <h2 id ="playerMoney"><?php echo $playersData[0]['Money']; ?>$</h2>
     
@@ -114,7 +119,7 @@
         </div>
     </div>
     
-    <button id="submit">Submit</button>
+    <button class="button" id="submit">Submit</button>
 
     <script src="../Resources/ResourcesScript.js"></script>
 </body>

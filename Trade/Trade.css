@@ -12,6 +12,7 @@ html, body {
     margin-bottom: 2%;
 }
 
+/* Tables */
 .tables {
     display: inline-block;
     width: 100%;
@@ -31,6 +32,7 @@ html, body {
     background-color: white;
 }
 
+/* Submit */
 #submit {
     margin-top: 1%;
     background-color: darkblue;
