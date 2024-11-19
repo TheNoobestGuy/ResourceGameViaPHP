@@ -18,10 +18,6 @@ let stoneValueInput = document.getElementById('stoneValue')
 let metalValueInput = document.getElementById('metalValue')
 let inputLimit = 9999;
 
-woodValueInput.addEventListener('select', function(e) {
-    e.preventDefault(); // Prevent mouse down event (selection)
-});
-
 // Errors
 let errorNegativeMoney = document.getElementById('errorNegativeMoney');
 let moneyIsNegative = false;
