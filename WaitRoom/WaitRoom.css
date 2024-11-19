@@ -1,0 +1,25 @@
+html, body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-align: center;
+    justify-items: center;
+    justify-content: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+/* Table */
+table {
+    display: flex;
+    border-collapse: collapse;
+    margin-bottom: 3%;
+}
+
+table tr th, td {
+    width: 400px;
+    border: 1px solid #333;
+    padding: 8px;
+    text-align: center;
+    background-color: white;
+}

@@ -1,3 +1,4 @@
+<?php include '../Includes/ValidateToken.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,24 +7,16 @@
     <title>Admin</title>
     <link rel="stylesheet" href="../Includes/Header.css">
     <link rel="stylesheet" href="../Includes/Footer.css">
-    <link rel="stylesheet" href="../Admin/Admin.css">
+    <link rel="stylesheet" href="../Admin/AdminResourcesPanel.css">
 </head>
 
 <?php include '../Includes/Header.php'; ?>
 <?php include '../Includes/GetPlayers.php'; ?>
 
 <body id="bodyDiv">
-    <h2 id="playerName">Log as admin!</h2>
+    <h2>Resource panel:</h2>
 
-    <div id="passwordDiv">
-        <label>Password:</label>
-        <input id="password" autocomplete="off" placeholder="Type password" type="password"/>
-    </div>
-
-    <p id="error">Incorrect password!</p>
-
-    <button id="login"> Login </button>
-    <script src="../Admin/Admin.js"></script>
+    <script src="../Admin/AdminResourcesPanel.js"></script>
 </body>
 
 <?php include '../Includes/Footer.php'; ?>

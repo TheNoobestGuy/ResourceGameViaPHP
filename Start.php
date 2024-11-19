@@ -31,7 +31,8 @@ try {
         Resource_B INT DEFAULT 0,
         Resource_C INT DEFAULT 0,
         Resource_D INT DEFAULT 0,
-        Money INT DEFAULT 0
+        Money INT DEFAULT 0,
+        InGame BOOLEAN DEFAULT FALSE
     )";
     $conn->exec($sql);
 

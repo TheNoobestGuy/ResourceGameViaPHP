@@ -9,40 +9,22 @@ html, body {
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
-#playerName {
-    margin-top: 1.5%;
-}
-
-#passwordDiv {
+/* Table */
+table {
     display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: 40px;
-    justify-self: center;
-    justify-content: center;
-    align-items: center;
-    margin-top: 1.5%;
+    border-collapse: collapse;
     margin-bottom: 1.5%;
 }
 
-#passwordDiv label {
-    margin-right: 1%;
+table tr th, td {
+    width: 400px;
+    border: 1px solid #333;
+    padding: 8px;
+    text-align: center;
+    background-color: white;
 }
 
-#passwordDiv input {
-    padding-top: 5px;
-    padding-bottom: 5px;
-}
-
-#error {
-    margin-bottom: 1.5%;
-    display: none;
-    color: red;
-    font-weight: bold;
-}
-
-#login {
-    margin-top: 1.5%;
+#start {
     margin-bottom: 1.5%;
     background-color: black;
     color: white;

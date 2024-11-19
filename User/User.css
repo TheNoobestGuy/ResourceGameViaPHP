@@ -9,17 +9,6 @@ html, body {
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
-#body {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    text-align: center;
-    justify-items: center;
-    justify-content: center;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-}
-
 .menu {
     list-style-type: none;
     margin: 0;
@@ -42,7 +31,7 @@ html, body {
 }
 
 #playerName {
-    margin-top: 3%;
+    margin-top: 1.5%;
 }
 
 #passwordDiv {
