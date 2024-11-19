@@ -89,7 +89,6 @@ woodValueInput.addEventListener('input', function(event) {
         playersData[player].Wood = woodAmount;
 
         woodInputBuffor = value;
-        woodMoneyInputBuffor = value;
         woodInputLenght--;
 
         // Remove money error
@@ -130,7 +129,6 @@ woodValueInput.addEventListener('input', function(event) {
 // Stone input
 let stoneInputLenght = 0;
 let stoneInputBuffor = 0;
-let stoneMoneyInputBuffor = 0;
 
 stoneValueInput.addEventListener('input', function(event) {
     let typedText = mustBeNumber(stoneValueInput.value.split(''));
@@ -157,7 +155,6 @@ stoneValueInput.addEventListener('input', function(event) {
         playersData[player].Stone = stoneAmount;
 
         stoneInputBuffor = value;
-        stoneMoneyInputBuffor = value;
         stoneInputLenght--;
 
         // Remove money error
