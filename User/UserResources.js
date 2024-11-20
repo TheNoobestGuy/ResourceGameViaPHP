@@ -3,10 +3,6 @@ const adminChannel = new BroadcastChannel('resource_game_admin');
 const usersChannel = new BroadcastChannel('resource_game_users');
 const xhr = new XMLHttpRequest();
 
-// Validate token
-xhr.open("GET", "../Includes/ValidateToken.php", true);
-xhr.send();
-
 // Player
 const playerMoney = document.getElementById('playerMoney');
 const playerA = document.getElementById('playerA')

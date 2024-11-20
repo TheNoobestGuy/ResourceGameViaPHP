@@ -16,18 +16,6 @@
     <h2>Log on user account!</h2>
 
     <ul class="menu">
-        <li>
-            <button id="logPlayer1"> Player 1 </button>
-        </li>
-        <li>
-            <button id="logPlayer2"> Player 2 </button>
-        </li>
-        <li>
-            <button id="logPlayer3"> Player 3 </button>
-        </li>
-        <li>
-            <button id="logPlayer4"> Player 4 </button>
-        </li>
     </ul>
 
     <h2 id="playerName">Choose player u want to login as!</h2>

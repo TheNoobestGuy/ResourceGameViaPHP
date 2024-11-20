@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wait room</title>
+    <title>Wait Room</title>
     <link rel="stylesheet" href="../WaitRoom/WaitRoom.css">
     <link rel="stylesheet" href="../Includes/Header.css">
     <link rel="stylesheet" href="../Includes/Footer.css">

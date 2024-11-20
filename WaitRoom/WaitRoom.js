@@ -39,7 +39,7 @@ refreshPlayersList();
 // Channels listeners
 usersChannel.addEventListener('message', (event) => {
     if (event.data === 'quitWaitRoom' || event.data === 'JoinedWaitRoom') {
-        xhr.open("POST", "../Includes/RefreshDatabases.php", false);
+        xhr.open("GET", "../Includes/RefreshDatabases.php", false);
         xhr.send();
         playersData = JSON.parse(xhr.responseText);
         

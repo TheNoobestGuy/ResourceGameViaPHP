@@ -51,19 +51,19 @@
                 </tr>
                 <tr>
                     <td><?php echo $resourcesData[0]['Name']; ?></td>
-                    <td id="woodCost"><?php echo $resourcesData[0]['Cost']; ?>$</td>
+                    <td><?php echo $resourcesData[0]['Cost']; ?>$</td>
                 </tr>
                 <tr>
                     <td><?php echo $resourcesData[1]['Name']; ?></td>
-                    <td id="stoneCost"><?php echo $resourcesData[1]['Cost']; ?>$</td>
+                    <td><?php echo $resourcesData[1]['Cost']; ?>$</td>
                 </tr>
                 <tr>
                     <td><?php echo $resourcesData[2]['Name']; ?></td>
-                    <td id="metalCost"><?php echo $resourcesData[2]['Cost']; ?>$</td>
+                    <td><?php echo $resourcesData[2]['Cost']; ?>$</td>
                 </tr>
                 <tr>
                     <td><?php echo $resourcesData[3]['Name']; ?></td>
-                    <td id="metalCost"><?php echo $resourcesData[3]['Cost']; ?>$</td>
+                    <td><?php echo $resourcesData[3]['Cost']; ?>$</td>
                 </tr>
             </table>
         </div>

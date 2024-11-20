@@ -14,14 +14,8 @@ if (sessionStorage.getItem('WaitRoom')) {
     usersChannel.postMessage('quitWaitRoom');
     sessionStorage.removeItem('WaitRoom');
     sessionStorage.removeItem('Player');
+    location.reload();
 }
-
-// Players
-const playerName = document.getElementById('playerName');
-const playerButton1 = document.getElementById('logPlayer1');
-const playerButton2 = document.getElementById('logPlayer2');
-const playerButton3 = document.getElementById('logPlayer3');
-const playerButton4 = document.getElementById('logPlayer4');
 
 // Error
 const passwordDiv = document.getElementById('passwordDiv');
@@ -35,50 +29,40 @@ input.addEventListener('input', event => {
     error.style.display = 'none';
 })
 
-// Handle players buttons
-playerButton1.addEventListener('click', event => {
-    if (player != 0) {
+// Buttons
+const playerName = document.getElementById('playerName');
+const menu = document.querySelector('.menu');
+
+function clickButton(user) {
+    if (player != user) {
         passwordDiv.style.marginBottom = "1.5%";
         error.style.display = 'none';
         input.value = "";
     }
 
-    playerName.innerHTML = "Player 1";
-    player = 0;
-});
+    passwordDiv.style.display = "flex";
+    playerName.innerHTML = `Player ${user+1}`;
+    player = user;
+}
 
-playerButton2.addEventListener('click', event => {
-    if (player != 1) {
-        passwordDiv.style.marginBottom = "1.5%";
-        error.style.display = 'none';
-        input.value = "";
-    }
+function drawButtons() {
+    menu.innerHTML = "";
+
+    for (let i = 0; i < playersData.length-1; i++) {
+        if (playersData[i].InGame != 1) {
+            const newLi = document.createElement('li');
+            const newButton = document.createElement('button');
     
-    playerName.innerHTML = "Player 2";
-    player = 1;
-});
-
-playerButton3.addEventListener('click', event => {
-    if (player != 2) {
-        passwordDiv.style.marginBottom = "1.5%";
-        error.style.display = 'none';
-        input.value = "";
+            newButton.textContent = `Player ${playersData[i].ID}`;
+            newButton.onclick = function () {
+                clickButton(playersData[i].ID - 1);
+            }
+            newLi.appendChild(newButton);
+            menu.appendChild(newLi);
+        }
     }
-
-    playerName.innerHTML = "Player 3";
-    player = 2;
-});
-
-playerButton4.addEventListener('click', event => {
-    if (player != 3) {
-        passwordDiv.style.marginBottom = "1.5%";
-        error.style.display = 'none';
-        input.value = "";
-    }
-
-    playerName.innerHTML = "Player 4";
-    player = 3;
-});
+}
+drawButtons();
 
 // Handle login
 const loginButton = document.getElementById('login');
@@ -117,3 +101,15 @@ loginButton.addEventListener('click', event => {
         usersChannel.postMessage('JoinedWaitRoom');
     }
 })
+
+// Channels listeners
+usersChannel.addEventListener('message', (event) => {
+    if (event.data === 'JoinedWaitRoom' || event.data === 'quitWaitRoom') {
+        xhr.open("GET", "../Includes/RefreshDatabases.php", false);
+        xhr.send();
+        console.log('x');
+        playersData = JSON.parse(xhr.responseText);
+
+        drawButtons();
+    }
+});
