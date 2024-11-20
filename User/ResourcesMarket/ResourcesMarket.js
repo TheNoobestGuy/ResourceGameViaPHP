@@ -370,8 +370,8 @@ adminChannel.addEventListener('message', (event) => {
         // Update resources
         xhr.open("POST", "../../Includes/UpdateResources.php", false);
         xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.send(JSON.stringify({ playersData: playersData}));
-        
+        xhr.send(JSON.stringify({ playersData: playersData, player: player }));
+
         // Generate token and switch pages
         xhr.open("POST", "../../Includes/GenerateToken.php", false);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");

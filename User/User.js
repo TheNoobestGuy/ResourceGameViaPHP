@@ -85,7 +85,7 @@ loginButton.addEventListener('click', event => {
     // Generate token for next site and switch to proper player
     if (logedIn) {
         // Update database that user is onnline
-        xhr.open("POST", "../Includes/Onnline.php", false);
+        xhr.open("POST", "../Includes/SetInGame.php", false);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         xhr.send(`player=${player}`);
 

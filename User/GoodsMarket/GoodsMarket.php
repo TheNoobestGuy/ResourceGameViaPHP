@@ -16,7 +16,7 @@
 <body>
     <h2 id="title">Trade your resources on some goods to sell them later!</h2>
 
-    <h2 id="player">Player <?php echo $playersData[0]['ID']; ?></h2>
+    <h2 id="player">Player <?php echo $playersData[$player]['ID']; ?></h2>
 
     <div class=tables>
         <div>
@@ -84,15 +84,15 @@
     <div class="menu">
         <div>
             <label>X:</label>
-            <input type="text" id="XValue" autocomplete="off" placeholder="Type value"/>
+            <input type="text" id="XValue" autocomplete="off" placeholder="0"/>
         </div>
         <div>
             <label>Y:</label>
-            <input type="text" id="YValue" autocomplete="off" placeholder="Type value"/>
+            <input type="text" id="YValue" autocomplete="off" placeholder="0"/>
         </div>
         <div>
             <label>Z:</label>
-            <input type="text" id="ZValue" autocomplete="off" placeholder="Type value"/>
+            <input type="text" id="ZValue" autocomplete="off" placeholder="0"/>
         </div>
     </div>
 

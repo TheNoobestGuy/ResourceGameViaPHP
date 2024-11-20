@@ -5,6 +5,7 @@
     // Get the JSON input and decode it to a PHP array
     $inputData = json_decode(file_get_contents("php://input"), true);
     $playersData = $inputData["playersData"];
+    $player = $inputData["player"];
 
     // Connect with resources database
     $servername = "localhost";
@@ -18,17 +19,13 @@
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         // Alter players database with MySQL depending on accessed array
-        $index = 1;
-        foreach ($playersData as $player) {
-            $X = $player['Good_X'];
-            $Y = $player['Good_Y'];
-            $Z = $player['Good_Z'];
+        $X = $playersData[$player]['Good_X'];
+        $Y = $playersData[$player]['Good_Y'];
+        $Z = $playersData[$player]['Good_Z'];
 
-            $stmt = $pdo->prepare("UPDATE players SET Good_X = $X, Good_Y = $Y, Good_Z = $Z WHERE ID = $index;");
-            $stmt->execute();
-            $index++;
-        }
-    } 
+        $stmt = $pdo->prepare("UPDATE players SET Good_X = $X, Good_Y = $Y, Good_Z = $Z WHERE ID = ($player+1);");
+        $stmt->execute();
+    }
     catch (PDOException $e) {
         die("Database connection failed: " . $e->getMessage());
     }

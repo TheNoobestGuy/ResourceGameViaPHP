@@ -415,7 +415,7 @@ adminChannel.addEventListener('message', (event) => {
         // Update products
         xhr.open("POST", "../../Includes/UpdateProducts.php", false);
         xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.send(JSON.stringify({ playersData: playersData}));
+        xhr.send(JSON.stringify({ playersData: playersData, player: player }));
         
         // Generate token and switch pages
         xhr.open("POST", "../../Includes/GenerateToken.php", false);

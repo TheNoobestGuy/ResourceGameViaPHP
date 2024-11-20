@@ -80,21 +80,21 @@
         <div>
             <div>
                 <label>Resource A:</label>
-                <input type="text" id="AValue" autocomplete="off" placeholder="Type value"/>
+                <input type="text" id="AValue" autocomplete="off" placeholder="0"/>
             </div>
             <div>
                 <label>Resource B:</label>
-                <input type="text" id="BValue" autocomplete="off" placeholder="Type value"/>
+                <input type="text" id="BValue" autocomplete="off" placeholder="0"/>
             </div>
         </div>
         <div>
             <div>
                 <label>Resource C:</label>
-                <input type="text" id="CValue" autocomplete="off" placeholder="Type value"/>
+                <input type="text" id="CValue" autocomplete="off" placeholder="0"/>
             </div>
             <div>
                 <label>Resource D:</label>
-                <input type="text" id="DValue" autocomplete="off" placeholder="Type value"/>
+                <input type="text" id="DValue" autocomplete="off" placeholder="0"/>
             </div>
         </div>
     </div>
