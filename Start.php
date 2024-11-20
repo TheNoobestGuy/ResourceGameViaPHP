@@ -23,7 +23,7 @@ try {
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Create players table
-    $sql = "CREATE TABLE Users (
+    $sql = "CREATE TABLE Players (
         ID INT AUTO_INCREMENT PRIMARY KEY,
         Admin BOOLEAN DEFAULT FALSE,
         Password VARCHAR(20) NOT NULL,
@@ -31,6 +31,9 @@ try {
         Resource_B INT DEFAULT 0,
         Resource_C INT DEFAULT 0,
         Resource_D INT DEFAULT 0,
+        Good_X INT DEFAULT 0,
+        Good_Y INT DEFAULT 0,
+        Good_Z INT DEFAULT 0,
         Money INT DEFAULT 1000,
         InGame BOOLEAN DEFAULT FALSE
     )";
@@ -43,15 +46,26 @@ try {
         Cost INT DEFAULT 0
     )";
     $conn->exec($sql);
+
+    // Create goods table
+    $sql = "CREATE TABLE Goods (
+        ID INT AUTO_INCREMENT PRIMARY KEY,
+        Name VARCHAR(20) NOT NULL UNIQUE,
+        Cost_A INT NOT NULL,
+        Cost_B INT NOT NULL,
+        Cost_C INT NOT NULL,
+        Cost_D INT NOT NULL
+    )";
+    $conn->exec($sql);
     
     // Fill database
     for($i = 0; $i < 4; $i++) {
         $password = "player" .(string)($i + 1);
-        $sql = "INSERT INTO Users (Password) VALUES ('$password')";
+        $sql = "INSERT INTO Players (Password) VALUES ('$password')";
         $conn->exec($sql);
     }
     $password = "admin";
-    $sql = "INSERT INTO Users (Admin, Password) VALUES (TRUE, '$password')";
+    $sql = "INSERT INTO Players (Admin, Password) VALUES (TRUE, '$password')";
     $conn->exec($sql);
 
     $value = 1;
@@ -64,9 +78,15 @@ try {
             $value++;
         }
     }
-    echo "Successfully created database for resource game!";
-    
 
+    $sql = "INSERT INTO Goods (Name, Cost_A, Cost_B, Cost_C, Cost_D) VALUES ('X', 7, 3, 2, 5 )";
+    $conn->exec($sql);
+    $sql = "INSERT INTO Goods (Name, Cost_A, Cost_B, Cost_C, Cost_D) VALUES ('Y', 1, 4, 7, 3)";
+    $conn->exec($sql);
+    $sql = "INSERT INTO Goods (Name, Cost_A, Cost_B, Cost_C, Cost_D) VALUES ('Z', 1, 3, 1, 5)";
+    $conn->exec($sql);
+
+    echo "Successfully created database for resource game!";
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
 }

@@ -1,0 +1,87 @@
+html, body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-align: center;
+    justify-items: center;
+    justify-content: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+/* Tables */
+#tables {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 1.5%;
+}
+
+#tables div {
+    display: flex;
+    flex-direction: column;
+    margin-left: 1.5%;
+    margin-right: 1.5%;
+}
+
+#tables div h2 {
+    margin: 0;
+}
+
+#tables div h3 {
+    margin: 10px;
+}
+
+#tables div table {
+    display: flex;
+    border-collapse: collapse;
+}
+
+#tables div table tr th, td {
+    width: 120px;
+    border: 1px solid #333;
+    padding: 8px;
+    text-align: center;
+    background-color: white;
+}
+
+/* Menu */
+#menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    margin-top: 1.5%;
+    width: 100%;
+}
+
+#menu li {
+    display: inline-block;
+    margin-left: 0.25%;
+    margin-right: 0.25%;
+}
+
+#menu li button {
+    background-color: black;
+    color: white;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+/* Submit */
+#submit {
+    display: flex;
+    margin-top: 1.5%;
+    margin-bottom: 1%;
+    background-color: black;
+    color: white;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.Logo {
+    background-color: black;
+}
+
+.foot {
+    background-color: black;
+}

@@ -1,17 +1,17 @@
-<?php include '../Includes/ValidateToken.php'; ?>
+<?php include '../../Includes/ValidateToken.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Market</title>
-    <link rel="stylesheet" href="../User/UserResources.css">
-    <link rel="stylesheet" href="../Includes/Header.css">
-    <link rel="stylesheet" href="../Includes/Footer.css">
+    <title>Resources Market</title>
+    <link rel="stylesheet" href="../ResourcesMarket/ResourcesMarket.css">
+    <link rel="stylesheet" href="../../Includes/Header/Header.css">
+    <link rel="stylesheet" href="../../Includes/Footer/Footer.css">
 </head>
 
-<?php include '../Includes/ShareDatabase.php'; ?>
-<?php include '../Includes/Header.php'; ?>
+<?php include '../../Includes/ShareDatabase.php'; ?>
+<?php include '../../Includes/Header/Header.php'; ?>
 
 <body>
     <h2 id="title">Let's buy some resources!</h2>
@@ -100,7 +100,7 @@
     </div>
 
     <button class="button" id="submit">Submit</button>
-    <script src="../User/UserResources.js"></script>
+    <script src="../ResourcesMarket/ResourcesMarket.js"></script>
 </body>
 
-<?php include '../Includes/Footer.php'; ?>
+<?php include '../../Includes/Footer/Footer.php'; ?>

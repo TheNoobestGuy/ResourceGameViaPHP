@@ -19,7 +19,7 @@ const inputLimit = 9999;
 
 // Errors
 const errorNegativeMoney = document.getElementById('errorNegativeMoney');
-const moneyIsNegative = false;
+let moneyIsNegative = false;
 
 // Numbers table for fruther validation of input and converter
 const numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
@@ -89,6 +89,9 @@ AValueInput.addEventListener('input', function(event) {
 
         AInputBuffor = value;
         AInputLenght--;
+        
+        // Broadcast
+        adminChannel.postMessage({message: "Update", player: player, resource: resourcesData[0].Name, value: AAmount});
 
         // Remove money error
         if (moneyResult >= 0) {
@@ -118,6 +121,9 @@ AValueInput.addEventListener('input', function(event) {
     AInputBuffor = value;
     AInputLenght++;
 
+    // Broadcast
+    adminChannel.postMessage({message: "Update", player: player, resource: resourcesData[0].Name, value: AAmount});
+    
     // Check for negative money error
     if (moneyResult < 0) {
         moneyIsNegative = true;
@@ -156,6 +162,9 @@ BValueInput.addEventListener('input', function(event) {
         BInputBuffor = value;
         BInputLenght--;
 
+        // Broadcast
+        adminChannel.postMessage({message: "Update", player: player, resource: resourcesData[1].Name, value: BAmount});
+
         // Remove money error
         if (moneyResult >= 0) {
             moneyIsNegative = false;
@@ -183,6 +192,9 @@ BValueInput.addEventListener('input', function(event) {
 
     BInputBuffor = value;
     BInputLenght++;
+
+    // Broadcast
+    adminChannel.postMessage({message: "Update", player: player, resource: resourcesData[1].Name, value: BAmount});
 
     // Check for negative money error
     if (moneyResult < 0) {
@@ -222,6 +234,9 @@ CValueInput.addEventListener('input', function(event) {
         CInputBuffor = value;
         CInputLenght--;
 
+        // Broadcast
+        adminChannel.postMessage({message: "Update", player: player, resource: resourcesData[2].Name, value: CAmount});
+
         // Remove money error
         if (moneyResult >= 0) {
             moneyIsNegative = false;
@@ -249,6 +264,9 @@ CValueInput.addEventListener('input', function(event) {
 
     CInputBuffor = value;
     CInputLenght++;
+
+    // Broadcast
+    adminChannel.postMessage({message: "Update", player: player, resource: resourcesData[2].Name, value: CAmount});
 
     // Check for negative money error
     if (moneyResult < 0) {
@@ -287,6 +305,9 @@ DValueInput.addEventListener('input', function(event) {
 
         DInputBuffor = value;
         DInputLenght--;
+        
+        // Broadcast
+        adminChannel.postMessage({message: "Update", player: player, resource: resourcesData[3].Name, value: DAmount});
 
         // Remove money error
         if (moneyResult >= 0) {
@@ -316,6 +337,9 @@ DValueInput.addEventListener('input', function(event) {
     DInputBuffor = value;
     DInputLenght++;
 
+    // Broadcast
+    adminChannel.postMessage({message: "Update", player: player, resource: resourcesData[3].Name, value: DAmount});
+    
     // Check for negative money error
     if (moneyResult < 0) {
         moneyIsNegative = true;
@@ -327,5 +351,33 @@ DValueInput.addEventListener('input', function(event) {
 let submitButton = document.getElementById('submit');
 
 submitButton.addEventListener('click', function(event) {
+    // Check for error
+    if (moneyIsNegative) {
+        return;
+    }
 
+    adminChannel.postMessage({message: "Ready", player: player});
+
+    AValueInput.disabled = true;
+    BValueInput.disabled = true;
+    DValueInput.disabled = true;
+    CValueInput.disabled = true;
+});
+
+// Channels listeners
+adminChannel.addEventListener('message', (event) => {
+    if(event.data === "GoToGoodsMarket") {
+        // Update resources
+        xhr.open("POST", "../../Includes/UpdateResources.php", false);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(JSON.stringify({ playersData: playersData}));
+        
+        // Generate token and switch pages
+        xhr.open("POST", "../../Includes/GenerateToken.php", false);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send(`player=${player}`);
+        
+        let respone = JSON.parse(xhr.responseText)
+        window.location.href = `http://localhost/User/GoodsMarket/GoodsMarket.php?player=${player}&token=${respone.token}`;
+    }
 });

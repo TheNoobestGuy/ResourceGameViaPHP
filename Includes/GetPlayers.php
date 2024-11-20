@@ -14,7 +14,7 @@
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         // Get users database
-        $stmt = $conn->prepare("SELECT * FROM users");
+        $stmt = $conn->prepare("SELECT * FROM players");
         $stmt->execute();
         $usersDB = $stmt->fetchALL(PDO::FETCH_ASSOC);
 

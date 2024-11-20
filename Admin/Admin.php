@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
-    <link rel="stylesheet" href="../Includes/Header.css">
-    <link rel="stylesheet" href="../Includes/Footer.css">
+    <link rel="stylesheet" href="../Includes/Header/Header.css">
+    <link rel="stylesheet" href="../Includes/Footer/Footer.css">
     <link rel="stylesheet" href="../Admin/Admin.css">
 </head>
 
-<?php include '../Includes/Header.php'; ?>
+<?php include '../Includes/Header/Header.php'; ?>
 <?php include '../Includes/GetPlayers.php'; ?>
 
 <body id="bodyDiv">
@@ -26,4 +26,4 @@
     <script src="../Admin/Admin.js"></script>
 </body>
 
-<?php include '../Includes/Footer.php'; ?>
+<?php include '../Includes/Footer/Footer.php'; ?>

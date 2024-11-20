@@ -19,10 +19,10 @@
 
         // Update database
         if ($onnline == 1) {
-            $stmt = $conn->prepare("UPDATE users SET InGame=TRUE WHERE ID=$player");
+            $stmt = $conn->prepare("UPDATE players SET InGame=TRUE WHERE ID=$player");
         }
         else {
-            $stmt = $conn->prepare("UPDATE users SET InGame=FALSE WHERE ID=$player");
+            $stmt = $conn->prepare("UPDATE players SET InGame=FALSE WHERE ID=$player");
         }
         $stmt->execute();
 

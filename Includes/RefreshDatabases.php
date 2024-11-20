@@ -6,7 +6,7 @@
     $dbname = "ResourceGame";
 
     // Connection with tables
-    $tablePlayers = 'users';
+    $tablePlayers = 'players';
 
     try {
         // Connect to the database using PDO

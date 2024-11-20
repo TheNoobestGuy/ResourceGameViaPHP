@@ -44,7 +44,7 @@ loginButton.addEventListener('click', event => {
         xhr.send(`player=${player}`);
 
         let respone = JSON.parse(xhr.responseText)
-        window.location.href = `http://localhost/Admin/AdminWaitRoom.php?player=${player}&token=${respone.token}`;
+        window.location.href = `http://localhost/Admin/WaitRoom/WaitRoom.php?player=${player}&token=${respone.token}`;
         adminChannel.postMessage('AdminJoinedWaitRoom');
     }
 })

@@ -9,8 +9,9 @@
     $dbname = "ResourceGame";
 
     // Connection with tables
-    $tablePlayers = 'users';
+    $tablePlayers = 'players';
     $tableResources = 'resources';
+    $tableGoods = 'goods';
 
     try {
         // Connect to the database using PDO
@@ -27,10 +28,16 @@
         $stmt->execute();
         $resourcesData = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+        // Goods database
+        $stmt = $pdo->prepare("SELECT * FROM $tableGoods");
+        $stmt->execute();
+        $goodsData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
         // Export databases
         echo "<script>let player = " . (int)$player . ";</script>";
         echo "<script>let playersData = " . json_encode($playersData) . ";</script>";
         echo "<script>let resourcesData = " . json_encode($resourcesData) . ";</script>";
+        echo "<script>let goodsData = " . json_encode($goodsData) . ";</script>";
     } 
     catch (PDOException $e) {
         die("Database connection failed: " . $e->getMessage());

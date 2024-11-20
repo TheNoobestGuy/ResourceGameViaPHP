@@ -39,7 +39,7 @@ refreshPlayersList();
 // Channels listeners
 usersChannel.addEventListener('message', (event) => {
     if (event.data === 'quitWaitRoom' || event.data === 'JoinedWaitRoom') {
-        xhr.open("GET", "../Includes/RefreshDatabases.php", false);
+        xhr.open("GET", "../../Includes/RefreshDatabases.php", false);
         xhr.send();
         playersData = JSON.parse(xhr.responseText);
         
@@ -53,11 +53,11 @@ adminChannel.addEventListener('message', (event) => {
     }
     else if(event.data === 'ResourcesLevel') {
         // Generate token and go to resource level
-        xhr.open("POST", "../Includes/GenerateToken.php", false);
+        xhr.open("POST", "../../Includes/GenerateToken.php", false);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         xhr.send(`player=${player}`);
 
         let respone = JSON.parse(xhr.responseText)
-        window.location.href = `http://localhost/User/UserResources.php?player=${player}&token=${respone.token}`;
+        window.location.href = `http://localhost/User/ResourcesMarket/ResourcesMarket.php?player=${player}&token=${respone.token}`;
     }
 });

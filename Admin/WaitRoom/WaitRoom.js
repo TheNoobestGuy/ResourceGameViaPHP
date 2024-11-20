@@ -40,18 +40,18 @@ const start = document.getElementById('start');
 
 start.addEventListener('click', event => {
     // Generate token and start game
-    xhr.open("POST", "../Includes/GenerateToken.php", false);
+    xhr.open("POST", "../../Includes/GenerateToken.php", false);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send(`player=${player}`);
 
-    let respone = JSON.parse(xhr.responseText)
-    window.location.href = `http://localhost/Admin/AdminResourcesPanel.php?player=${player}&token=${respone.token}`;
+    let respone = JSON.parse(xhr.responseText);
+    window.location.href = `http://localhost/Admin/ResourcesPanel/ResourcesPanel.php?player=${player}&token=${respone.token}`;
     adminChannel.postMessage('ResourcesLevel');
 });
 
 usersChannel.addEventListener('message', (event) => {
     if (event.data === 'quitWaitRoom' || event.data === 'JoinedWaitRoom') {
-        xhr.open("POST", "../Includes/RefreshDatabases.php", false);
+        xhr.open("POST", "../../Includes/RefreshDatabases.php", false);
         xhr.send();
         playersData = JSON.parse(xhr.responseText);
 

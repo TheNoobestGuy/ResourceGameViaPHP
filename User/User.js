@@ -95,7 +95,7 @@ loginButton.addEventListener('click', event => {
         xhr.send(`player=${player}`);
 
         let respone = JSON.parse(xhr.responseText);
-        window.location.href = `http://localhost/WaitRoom/WaitRoom.php?player=${player}&token=${respone.token}`;
+        window.location.href = `http://localhost/User/WaitRoom/WaitRoom.php?player=${player}&token=${respone.token}`;
         sessionStorage.setItem('WaitRoom', 'true');
         sessionStorage.setItem('Player', player);
         usersChannel.postMessage('JoinedWaitRoom');
