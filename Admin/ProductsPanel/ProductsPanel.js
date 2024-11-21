@@ -130,6 +130,13 @@ drawMenu();
 // Submit button 
 const submit = document.getElementById('submit');
 submit.addEventListener('click', (event) => {
+    // Generate token and switch pages
+    xhr.open("POST", "../../Includes/GenerateToken.php", false);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send(`player=${player}`);
+
+    let respone = JSON.parse(xhr.responseText)
+    window.location.href = `http://localhost/Admin/StockPanel/StockPanel.php?player=${player}&token=${respone.token}`;
     adminChannel.postMessage("GoToStockMarket");
 });
 
@@ -141,4 +148,8 @@ adminChannel.addEventListener('message', (event) => {
     else if(event.data.message === "Ready") {
         makeReady(event.data.player);
     }
+});
+
+usersChannel.addEventListener('message', (event) => {
+
 });

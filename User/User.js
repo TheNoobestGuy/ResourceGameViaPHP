@@ -7,10 +7,10 @@ const xhr = new XMLHttpRequest();
 if (sessionStorage.getItem('WaitRoom')) {
     const user = sessionStorage.getItem('Player');
     
-    xhr.open("POST", "../Includes/Onnline.php", false);
+    xhr.open("POST", "../Includes/SetInGame.php", false);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send(`player=${user}&onnline=0`);
-
+    
     usersChannel.postMessage('quitWaitRoom');
     sessionStorage.removeItem('WaitRoom');
     sessionStorage.removeItem('Player');
@@ -94,11 +94,12 @@ loginButton.addEventListener('click', event => {
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         xhr.send(`player=${player}`);
 
-        let respone = JSON.parse(xhr.responseText);
-        window.location.href = `http://localhost/User/WaitRoom/WaitRoom.php?player=${player}&token=${respone.token}`;
-        sessionStorage.setItem('WaitRoom', 'true');
+        sessionStorage.setItem('WaitRoom', true);
         sessionStorage.setItem('Player', player);
         usersChannel.postMessage('JoinedWaitRoom');
+
+        let respone = JSON.parse(xhr.responseText);
+        window.location.href = `http://localhost/User/WaitRoom/WaitRoom.php?player=${player}&token=${respone.token}`;
     }
 })
 
@@ -107,7 +108,6 @@ usersChannel.addEventListener('message', (event) => {
     if (event.data === 'JoinedWaitRoom' || event.data === 'quitWaitRoom') {
         xhr.open("GET", "../Includes/RefreshDatabases.php", false);
         xhr.send();
-        console.log('x');
         playersData = JSON.parse(xhr.responseText);
 
         drawButtons();

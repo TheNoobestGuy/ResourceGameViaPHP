@@ -79,7 +79,7 @@
         </div>
     </div>
     
-    <p class="error" id="negativeResources">You doesnt have enough resources!</p>
+    <p class="error" id="negativeResources">You don't have enough resources!</p>
 
     <div class="menu">
         <div>
@@ -96,7 +96,7 @@
         </div>
     </div>
 
-    <button class="button" id="submit">Submit</button>
+    <button class="button" id="submit">Done</button>
 
     <script src="../GoodsMarket/GoodsMarket.js"></script>
 </body>

@@ -74,7 +74,7 @@
     <h2>Your money:</h2>
     <h2 id ="playerMoney"><?php echo $playersData[$player]['Money']; ?>$</h2>
 
-    <p class="error" id="errorNegativeMoney">You dont have enough money!</p>
+    <p class="error" id="errorNegativeMoney">You don't have enough money!</p>
 
     <div class="menu">
         <div>
@@ -99,7 +99,7 @@
         </div>
     </div>
 
-    <button class="button" id="submit">Submit</button>
+    <button class="button" id="submit">Done</button>
     <script src="../ResourcesMarket/ResourcesMarket.js"></script>
 </body>
 

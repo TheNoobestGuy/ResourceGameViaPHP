@@ -1,0 +1,99 @@
+html, body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-align: center;
+    justify-content: center;
+    font-family: Georgia, 'Times New Roman', Times, serif
+}
+
+#title {
+    margin-top: 1.5%;
+    margin-bottom: 1.5%;
+}
+
+/* tables */
+#tables {
+    display: inline-block;
+    width: 100%;
+}
+
+#tables div {
+    display: inline-block;
+    margin-left: 0.5%;
+    margin-right: 0.5%;
+}
+
+#tables div table {
+    display: flex;
+    border-collapse: collapse;
+}
+
+#tables div table tr th, td {
+    width: 120px;
+    border: 1px solid #333;
+    padding: 8px;
+    text-align: center;
+    background-color: white;
+}
+
+/* Market menu */
+#marketMenu {
+    display: inline-block;
+    justify-self: center;
+    justify-content: center;
+    width: 100%;
+}
+
+#marketMenu div {
+    display: inline-block;
+    margin-right: 1.5%;
+    margin-left: 1.5%;
+}
+
+#marketMenu div div{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: right; 
+    justify-items: center;
+    margin-bottom: 10px;
+}
+
+#marketMenu div div label {
+    margin: 0;
+    margin-right: 10px;
+}
+
+#marketMenu div div input {
+    width: 100px;
+    text-align: center;
+}
+
+button {
+    justify-self: center;
+    align-self: center;
+    margin-top: 10px;   
+    background-color: darkblue;
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+    width: 50%;
+}
+
+#submit {
+    width: auto;
+    background-color: darkblue;
+    color: white;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 1.5%;
+}
+
+/* Error */
+#error {
+    display: none;
+    color: red;
+    font-weight: bold;
+}

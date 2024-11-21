@@ -85,8 +85,6 @@ try {
     $conn->exec($sql);
     $sql = "INSERT INTO Goods (Name, Cost_A, Cost_B, Cost_C, Cost_D) VALUES ('Z', 1, 3, 1, 5)";
     $conn->exec($sql);
-
-    echo "Successfully created database for resource game!";
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
 }
@@ -94,3 +92,34 @@ try {
 // Close the connection
 $conn = null;
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start</title>
+    <link rel="stylesheet" href="Start.css">
+    <link rel="stylesheet" href="../../Includes/Header/Header.css">
+    <link rel="stylesheet" href="../../Includes/Footer/Footer.css">
+</head>
+
+<?php include 'Includes/Header/Header.php'; ?>
+
+<body>
+    <h2 id="title">Wait for admin he didint joined yet!</h2>
+
+    <div id="gameID">
+        <input disabled="true">
+        <button>Copy</button>
+    </div>
+
+    <ul id="menu">
+        <li><button>Admin</button></li>
+        <li><button>Player</button></li>
+    </ul>
+
+    <script src="Start.js"></script>
+</body>
+
+<?php include 'Includes/Footer/Footer.php'; ?></link>
