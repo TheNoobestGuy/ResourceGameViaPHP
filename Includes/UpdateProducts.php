@@ -1,7 +1,4 @@
 <?php
-    // Set the content type to JSON for the response
-    header('Content-Type: application/json');
-
     // Get the JSON input and decode it to a PHP array
     $inputData = json_decode(file_get_contents("php://input"), true);
     $playersData = $inputData["playersData"];

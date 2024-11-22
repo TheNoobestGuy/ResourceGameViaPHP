@@ -11,6 +11,7 @@
 </head>
 
 <?php include '../../Includes/ShareDatabase.php'; ?>
+<?php include '../../Includes/LoadOffers.php'; ?>
 <?php include '../../Includes/Header/Header.php'; ?>
 
 <body>
@@ -45,6 +46,7 @@
                     <th>Player</th>
                     <th>Amount</th>
                     <th>Price</th>
+                    <th>Close</th>
                 </thead>
                 <tbody></tbody>
             </table>
@@ -56,6 +58,7 @@
                     <th>Player</th>
                     <th>Amount</th>
                     <th>Price</th>
+                    <th>Close</th>
                 </thead>
                 <tbody></tbody>
             </table>
@@ -67,6 +70,7 @@
                     <th>Player</th>
                     <th>Amount</th>
                     <th>Price</th>
+                    <th>Close</th>
                 </thead>
                 <tbody></tbody>
             </table>

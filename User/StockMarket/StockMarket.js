@@ -34,14 +34,37 @@ function createRow(player, amount, price, product) {
     if (!Xnegative && !Ynegative && !Znegative) {
         const productTable = document.getElementById(`table${product}`);
         const newRow = productTable.insertRow();
+
         const playerCell = newRow.insertCell(0);
         const amountCell = newRow.insertCell(1);
         const priceCell = newRow.insertCell(2);
+        const closeCell = newRow.insertCell(3);
 
+        // Cells
         playerCell.textContent = player+1;
         amountCell.textContent = amount;
         priceCell.textContent = `${price}$`;
+
+        // Button for withdrawing an offer
+        const newButton = document.createElement('button');
+        newButton.textContent = "X";
+        newButton.onclick = function () {
+            const row = this.closest('tr');
+            const table = row.parentNode;
+            table.removeChild(row);
+            
+            adminChannel.postMessage({message: "Delete", product: product, 
+                player: player, amount: amount, price: price});
+        }
+        closeCell.appendChild(newButton);
     }
+}
+
+// Update goods table
+function updateGoods() {
+    xhr.open("POST", "../../Includes/UpdateProducts.php", false);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(JSON.stringify({ playersData: playersData, player: player }));
 }
 
 // Numbers table for fruther validation of input and converter
@@ -82,6 +105,88 @@ function createString(typedText) {
     return buffor;
 }
 
+// Show offers
+const tableX = document.getElementById('tableX');
+for(let i = 0; i < offersX.length; i++) {
+    const newRow = tableX.insertRow()
+
+    const playerCell = newRow.insertCell(0);
+    const amountCell = newRow.insertCell(1);
+    const priceCell = newRow.insertCell(2);
+    const closeCell = newRow.insertCell(3);
+
+    playerCell.textContent = Number(offersX[i].Player+1);
+    amountCell.textContent = offersX[i].Amount;
+    priceCell.textContent = `${offersX[i].Price}$`;
+
+    // Button for withdrawing an offer
+    const newButton = document.createElement('button');
+    newButton.textContent = "X";
+    newButton.onclick = function () {
+        const row = this.closest('tr');
+        const table = row.parentNode;
+        table.removeChild(row);
+        
+        adminChannel.postMessage({message: "Delete", product: offersX[i].Product, 
+            player: player, amount: offersX[i].Amount, price: offersX[i].Price});
+    }
+    closeCell.appendChild(newButton);
+}
+
+const tableY = document.getElementById('tableY');
+for(let i = 0; i < offersY.length; i++) {
+    const newRow = tableY.insertRow()
+
+    const playerCell = newRow.insertCell(0);
+    const amountCell = newRow.insertCell(1);
+    const priceCell = newRow.insertCell(2);
+    const closeCell = newRow.insertCell(3);
+
+    playerCell.textContent = Number(offersY[i].Player+1);
+    amountCell.textContent = offersY[i].Amount;
+    priceCell.textContent = `${offersY[i].Price}$`;
+    
+    // Button for withdrawing an offer
+    const newButton = document.createElement('button');
+    newButton.textContent = "X";
+    newButton.onclick = function () {
+        const row = this.closest('tr');
+        const table = row.parentNode;
+        table.removeChild(row);
+        
+        adminChannel.postMessage({message: "Delete", product: offersY[i].Product, 
+            player: player, amount: offersY[i].Amount, price: offersY[i].Price});
+    }
+    closeCell.appendChild(newButton);
+}
+
+const tableZ = document.getElementById('tableZ');
+for(let i = 0; i < offersZ.length; i++) {
+    const newRow = tableZ.insertRow()
+
+    const playerCell = newRow.insertCell(0);
+    const amountCell = newRow.insertCell(1);
+    const priceCell = newRow.insertCell(2);
+    const closeCell = newRow.insertCell(3);
+
+    playerCell.textContent = Number(offersZ[i].Player+1);
+    amountCell.textContent = offersZ[i].Amount;
+    priceCell.textContent = `${offersZ[i].Price}$`;
+
+    // Button for withdrawing an offer
+    const newButton = document.createElement('button');
+    newButton.textContent = "X";
+    newButton.onclick = function () {
+        const row = this.closest('tr');
+        const table = row.parentNode;
+        table.removeChild(row);
+        
+        adminChannel.postMessage({message: "Delete", product: offersZ[i].Product, 
+            player: player, amount: offersZ[i].Amount, price: offersZ[i].Price});
+    }
+    closeCell.appendChild(newButton);
+}
+
 // X product offers
 let XInputLenght = 0;
 let XInputBuffor = 0;
@@ -106,9 +211,6 @@ Xamount.addEventListener('input', function(event) {
         XInputBuffor = value;
         XInputLenght--;
         
-        // Broadcast
-        //adminChannel.postMessage({message: "Update", player: player, resource: resourcesData[3].Name, value: XAmount});
-
         // Erease error
         if (Xnegative && XAmount >= 0) {
             Xnegative = false;
@@ -126,16 +228,12 @@ Xamount.addEventListener('input', function(event) {
 
     // Convert text to int and use it to calculate resources and money
     let XAmount = Number(Number(playersData[player].Good_X) + XInputBuffor - value);
-    console.log(playersData[player].Good_X);
     playerX.innerHTML = `${XAmount}`;
     playersData[player].Good_X = XAmount;
 
     XInputBuffor = value;
     XInputLenght++;
 
-    // Broadcast
-    //adminChannel.postMessage({message: "Update", player: player, resource: resourcesData[3].Name, value: XAmount});
-    
     // Check for errors
     if (XAmount < 0) {
         Xnegative = true;
@@ -150,9 +248,11 @@ Xprice.addEventListener('input', function(event) {
 });
 
 SendX.addEventListener('click', function(event) {
-    if (Xamount.value > 0 && Xprice.value > 0) {
+    if (!Xnegative && Xamount.value != "" && Xprice.value != "") {
         createRow(player, Xamount.value, Xprice.value, 'X');
-        usersChannel.postMessage({message: "Update", product: 'X', 
+
+        updateGoods();
+        adminChannel.postMessage({message: "Update", product: 'X', 
             player: player, amount: Xamount.value, price: Xprice.value});
 
         Xamount.value = "";
@@ -183,9 +283,6 @@ Yamount.addEventListener('input', function(event) {
 
         YInputBuffor = value;
         YInputLenght--;
-        
-        // Broadcast
-        //adminChannel.postMessage({message: "Update", player: player, resource: resourcesData[3].Name, value: XAmount});
 
         // Erease error
         if (Ynegative && YAmount >= 0) {
@@ -211,9 +308,6 @@ Yamount.addEventListener('input', function(event) {
     YInputBuffor = value;
     YInputLenght++;
 
-    // Broadcast
-    //adminChannel.postMessage({message: "Update", player: player, resource: resourcesData[3].Name, value: XAmount});
-    
     // Check for errors
     if (YAmount < 0) {
         Ynegative = true;
@@ -228,9 +322,11 @@ Yprice.addEventListener('input', function(event) {
 });
 
 SendY.addEventListener('click', function(event) {
-    if (Yamount.value > 0 && Yprice.value > 0) {
+    if (!Ynegative && Yamount.value != "" && Yprice.value != "") {
         createRow(player, Yamount.value, Yprice.value, 'Y');
-        usersChannel.postMessage({message: "Update", product: 'Y', 
+
+        updateGoods();
+        adminChannel.postMessage({message: "Update", product: 'Y', 
             player: player, amount: Yamount.value, price: Yprice.value});
         
         Yamount.value = "";
@@ -255,15 +351,12 @@ Zamount.addEventListener('input', function(event) {
 
     // Go back to previous value
     if (ZInputLenght > typedText.length) {
-        let ZAmount = Number(Number(layersData[player].Good_Z) + ZInputBuffor - value);
+        let ZAmount = Number(Number(playersData[player].Good_Z) + ZInputBuffor - value);
         playerZ.innerHTML = `${ZAmount}`;
         playersData[player].Good_Z = ZAmount;
 
         ZInputBuffor = value;
         ZInputLenght--;
-        
-        // Broadcast
-        //adminChannel.postMessage({message: "Update", player: player, resource: resourcesData[3].Name, value: XAmount});
 
         // Erease error
         if (Znegative && ZAmount >= 0) {
@@ -289,9 +382,6 @@ Zamount.addEventListener('input', function(event) {
     ZInputBuffor = value;
     ZInputLenght++;
 
-    // Broadcast
-    //adminChannel.postMessage({message: "Update", player: player, resource: resourcesData[3].Name, value: XAmount});
-    
     // Check for errors
     if (ZAmount < 0) {
         Znegative = true;
@@ -306,9 +396,11 @@ Zprice.addEventListener('input', function(event) {
 });
 
 SendZ.addEventListener('click', function(event) {
-    if (Zamount.value > 0 && Zprice.value > 0) {
+    if (!Znegative && Zamount.value != "" && Zprice.value != "") {
         createRow(player, Zamount.value, Zprice.value, 'Z');
-        usersChannel.postMessage({message: "Update", product: 'Z', 
+
+        updateGoods();
+        adminChannel.postMessage({message: "Update", product: 'Z', 
             player: player, amount: Zamount.value, price: Zprice.value});
         
         Zamount.value = "";
@@ -320,11 +412,5 @@ SendZ.addEventListener('click', function(event) {
 adminChannel.addEventListener('message', (event) => {
     if(event.data === "GoToStockMarket") {
 
-    }
-});
-
-usersChannel.addEventListener('message', (event) => {
-    if(event.data === "GoToStockMarket") {
-        
     }
 });

@@ -5,16 +5,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stock Panel</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="../../Includes/Header/Header.css">
     <link rel="stylesheet" href="../../Includes/Footer/Footer.css">
     <link rel="stylesheet" href="../StockPanel/StockPanel.css">
 </head>
 
 <?php include '../../Includes/ShareDatabase.php'; ?>
+<?php include '../../Includes/LoadOffers.php'; ?>
 <?php include '../../Includes/Header/Header.php'; ?>
 
 <body>
     <h2 id="title">Stock Panel:</h2>
+
+    <div id="functionsDiv">
+        <div id="managmentPanel">
+            <input>
+            <button>Check</button>
+        </div>
+        <div id="chartPanel">
+            <canvas id="chart" width="400" height="200"></canvas>
+        </div>
+    </div>
 
     <div id="tables">
         <div>

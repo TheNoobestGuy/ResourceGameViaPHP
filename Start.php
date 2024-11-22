@@ -58,6 +58,16 @@ try {
     )";
     $conn->exec($sql);
     
+    // Create offers table
+    $sql = "CREATE TABLE Offers (
+        ID INT AUTO_INCREMENT PRIMARY KEY,
+        Player INT NOT NULL,
+        Product CHAR NOT NULL,
+        Amount INT NOT NULL,
+        Price INT NOT NULL
+    )";
+    $conn->exec($sql);
+
     // Fill database
     for($i = 0; $i < 4; $i++) {
         $password = "player" .(string)($i + 1);

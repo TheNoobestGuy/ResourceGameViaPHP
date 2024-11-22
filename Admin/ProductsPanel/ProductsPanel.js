@@ -103,7 +103,7 @@ function drawMenu() {
         const newLi = document.createElement('li');
         const newButton = document.createElement('button');
     
-        newButton.textContent = `Good ${goodsData[i].Name}`;
+        newButton.textContent = `Product ${goodsData[i].Name}`;
         newButton.onclick = function () {
             clickButton(playersData[i].ID - 1);
         }

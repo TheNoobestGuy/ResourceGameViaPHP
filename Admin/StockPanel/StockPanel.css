@@ -13,6 +13,29 @@ html, body {
     margin-bottom: 1.5%;
 }
 
+/* Managment menu */
+#functionsDiv {
+    display: flex;
+    justify-items: center;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}
+
+#managmentPanel {
+    display: flex;
+}
+
+#chartPanel {
+    display: flex;
+    justify-items: center;
+    width: 35%;
+}
+
+#chart {
+    display: flex;
+}
+
 /* tables */
 #tables {
     display: inline-block;
@@ -31,7 +54,7 @@ html, body {
 }
 
 #tables div table tr th, td {
-    width: 120px;
+    width: 80px;
     border: 1px solid #333;
     padding: 8px;
     text-align: center;
