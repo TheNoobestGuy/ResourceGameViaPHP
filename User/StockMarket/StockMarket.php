@@ -117,8 +117,6 @@
             <button id="SendZ">Send</button>
         </div>
     </div>
-    
-    <button id="submit">Done</button>
 
     <script src="../StockMarket/StockMarket.js"></script>
 </body>

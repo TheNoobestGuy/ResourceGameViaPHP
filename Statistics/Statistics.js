@@ -52,7 +52,8 @@ submitButton.addEventListener('click', function(event) {
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send(`player=${player}`);
     
-    window.location.href = `http://localhost/Admin/ResourcesPanel/ResourcesPanel.php?player=${player}&token=${respone.token}`;
+    let response = JSON.parse(xhr.responseText);
+    window.location.href = `http://localhost/Admin/ResourcesPanel/ResourcesPanel.php?player=${player}&token=${response.token}`;
 });
 
 // Channels listeners
@@ -63,7 +64,7 @@ adminChannel.addEventListener('message', (event) => {
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         xhr.send(`player=${player}`);
         
-        let respone = JSON.parse(xhr.responseText);
-        window.location.href = `http://localhost/User/ResourcesMarket/ResourcesMarket.php?player=${player}&token=${respone.token}`;
+        let response = JSON.parse(xhr.responseText);
+        window.location.href = `http://localhost/User/ResourcesMarket/ResourcesMarket.php?player=${player}&token=${response.token}`;
     }
 });

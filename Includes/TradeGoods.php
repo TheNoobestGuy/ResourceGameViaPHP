@@ -151,9 +151,10 @@
                 $playersOfferts[$i][$j]['Amount'] -= $sell;
                 $playersOfferts[$i][$j]['Price'] = $stockData[$indexInStock]['Price'];
                 $everythingSold = ($offertsToSplitDemand[0][3] - $sell) >= 0 ? true : false;
+                echo "Earned money: " . $playersOfferts[$i][$j]['Amount'] . "";
 
-                if (!$everythingSold) {
-                    //$j--;
+                if ($playersOfferts[$i][$j]['Amount'] > 0) {
+                    $j--;
                 }
             }
 
