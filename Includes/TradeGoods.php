@@ -111,12 +111,10 @@
                                 while($stockData[$index]['Price'] < $playersOfferts[$i][$j]['Price']) {
                                     $index++;
                                 }
-
                                 $demandForOffer = $stockData[$index]['Demand'];
                                 if ($offertsToSplitDemand[0][3] > $stockData[$index]['Price'])  {
                                     $offertsToSplitDemand[0][3] = $stockData[$index]['Price'];
                                 }
-                        
                                 $indexInStock = $index;
                                 break; 
                             }
@@ -137,28 +135,7 @@
                     $buffor = $sumOfoffertsForThreshold;
                 }
 
-                $whatCanBeSell = $buffor * $shareForOffer;
-
-                // Prefer lower prices
-                if($whatCanBeSell < 1 && $whatCanBeSell > 0) {
-                    $value = $offertsToSplitDemand[0][3];  
-                    $IsNotLowest = false;
-                    for($h = 0; $h < count($offertsToSplitDemand); $h++) {
-                        if ($value > $offertsToSplitDemand[$h][3]) {
-                            $IsNotLowest = true;
-                            break;
-                        }
-                    }
-
-                    if ($IsNotLowest) {
-                        $whatCanBeSell = 0;
-                    }
-                    else {
-                        $whatCanBeSell = 1;
-                    }
-                }
-
-                $whatCanBeSell = ceil($whatCanBeSell);
+                $whatCanBeSell = ceil($buffor * $shareForOffer);
 
                 // Sell product
                 $playersOfferts[$i][$j]['Amount'] -= $whatCanBeSell;
