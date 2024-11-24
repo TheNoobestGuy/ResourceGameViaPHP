@@ -7,6 +7,7 @@ const passwordDiv = document.getElementById('passwordDiv');
 const error = document.getElementById('error');
 
 // Handle error
+sessionStorage.clear();
 const input = document.getElementById('password');
 
 input.addEventListener('input', event => {

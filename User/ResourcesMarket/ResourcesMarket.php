@@ -100,6 +100,8 @@
     </div>
 
     <button class="button" id="submit">Done</button>
+    <button class="button" id="reset">Reset</button>
+
     <script src="../ResourcesMarket/ResourcesMarket.js"></script>
 </body>
 

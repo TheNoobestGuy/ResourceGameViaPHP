@@ -58,12 +58,21 @@ try {
     )";
     $conn->exec($sql);
     
-    // Create offers table
-    $sql = "CREATE TABLE Offers (
+    // Create offers table  
+    $sql = "CREATE TABLE Offerts (
         ID INT AUTO_INCREMENT PRIMARY KEY,
         Player INT NOT NULL,
         Product CHAR NOT NULL,
         Amount INT NOT NULL,
+        Price INT NOT NULL
+    )";
+    $conn->exec($sql);
+
+    // Create stock table
+    $sql = "CREATE TABLE Stock (
+        ID INT AUTO_INCREMENT PRIMARY KEY,
+        Product CHAR NOT NULL,
+        Demand INT NOT NULL,
         Price INT NOT NULL
     )";
     $conn->exec($sql);
@@ -117,12 +126,14 @@ $conn = null;
 <?php include 'Includes/Header/Header.php'; ?>
 
 <body>
-    <h2 id="title">Wait for admin he didint joined yet!</h2>
+    <h2 id="title">You are in lobby! Send someone inventation!</h2>
 
     <div id="gameID">
         <input disabled="true">
         <button>Copy</button>
     </div>
+
+    <h2 id="title">Log as:</h2>
 
     <ul id="menu">
         <li><button>Admin</button></li>

@@ -17,6 +17,83 @@ const CValueInput = document.getElementById('CValue')
 const DValueInput = document.getElementById('DValue')
 const inputLimit = 9999;
 
+// Reset values
+let reset = false;
+let A = 0;
+let B = 0;
+let C = 0;
+let D = 0;
+
+function resetForm(A, B, C, D, undo) {
+    if (undo) {
+        // Reset resources
+        playersData[player].Resource_A -= Number(A);
+        playersData[player].Resource_B -= Number(B);
+        playersData[player].Resource_C -= Number(C);
+        playersData[player].Resource_D -= Number(D);
+    
+
+        // Reset money
+        const Abuffor =  A * Number(resourcesData[0].Cost);
+        const Bbuffor =  B * Number(resourcesData[1].Cost); 
+        const Cbuffor =  C * Number(resourcesData[2].Cost);
+        const Dbuffor =  D * Number(resourcesData[3].Cost);
+        playersData[player].Money = Number(Number(playersData[player].Money) + Abuffor + Bbuffor + Cbuffor + Dbuffor);
+    
+
+        // Reset layout
+        playerA.innerHTML = `${playersData[player].Resource_A}`;
+        playerB.innerHTML = `${playersData[player].Resource_B}`;
+        playerC.innerHTML = `${playersData[player].Resource_C}`;
+        playerD.innerHTML = `${playersData[player].Resource_D}`;
+        playerMoney.innerHTML = `${playersData[player].Money}$`;
+
+        // Update database
+        xhr.open("POST", "../../Includes/UpdateResources.php", false);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(JSON.stringify({ playersData: playersData, player: player }));
+    }
+
+    // Update resources
+    adminChannel.postMessage({message: "NotReady", player: player});
+    adminChannel.postMessage({message: "Update", player: player, resource: resourcesData[0].Name, value: playersData[player].Resource_A});
+    adminChannel.postMessage({message: "Update", player: player, resource: resourcesData[1].Name, value: playersData[player].Resource_B});
+    adminChannel.postMessage({message: "Update", player: player, resource: resourcesData[2].Name, value: playersData[player].Resource_C});
+    adminChannel.postMessage({message: "Update", player: player, resource: resourcesData[3].Name, value: playersData[player].Resource_D}); 
+}
+
+if (sessionStorage.getItem("A") != null) {
+    A = Number(sessionStorage.getItem("A"))
+    sessionStorage.removeItem("A");
+    reset = true;
+}
+if (sessionStorage.getItem("B") != null) {
+    B = Number(sessionStorage.getItem("B"));
+    sessionStorage.removeItem("B");
+    reset = true;
+}
+if (sessionStorage.getItem("C") != null) {
+    C = Number(sessionStorage.getItem("C"));
+    sessionStorage.removeItem("C");
+    reset = true;
+}
+if (sessionStorage.getItem("D") != null) {
+    D = Number(sessionStorage.getItem("D"));
+    sessionStorage.removeItem("D");
+    reset = true;
+}
+
+if(reset) {
+    if (sessionStorage.getItem("Done") != null) {
+        resetForm(A, B, C, D, true);
+        sessionStorage.clear();
+    }
+    else {
+        resetForm(A, B, C, D, false);
+    }
+    reset = false;
+}
+
 // Errors
 const errorNegativeMoney = document.getElementById('errorNegativeMoney');
 let moneyIsNegative = false;
@@ -92,6 +169,7 @@ AValueInput.addEventListener('input', function(event) {
         
         // Broadcast
         adminChannel.postMessage({message: "Update", player: player, resource: resourcesData[0].Name, value: AAmount});
+        sessionStorage.setItem("A", value);
 
         // Remove money error
         if (moneyResult >= 0) {
@@ -123,7 +201,8 @@ AValueInput.addEventListener('input', function(event) {
 
     // Broadcast
     adminChannel.postMessage({message: "Update", player: player, resource: resourcesData[0].Name, value: AAmount});
-    
+    sessionStorage.setItem("A", value);
+
     // Check for negative money error
     if (moneyResult < 0) {
         moneyIsNegative = true;
@@ -164,6 +243,7 @@ BValueInput.addEventListener('input', function(event) {
 
         // Broadcast
         adminChannel.postMessage({message: "Update", player: player, resource: resourcesData[1].Name, value: BAmount});
+        sessionStorage.setItem("B", value);
 
         // Remove money error
         if (moneyResult >= 0) {
@@ -195,6 +275,7 @@ BValueInput.addEventListener('input', function(event) {
 
     // Broadcast
     adminChannel.postMessage({message: "Update", player: player, resource: resourcesData[1].Name, value: BAmount});
+    sessionStorage.setItem("B", value);
 
     // Check for negative money error
     if (moneyResult < 0) {
@@ -236,6 +317,7 @@ CValueInput.addEventListener('input', function(event) {
 
         // Broadcast
         adminChannel.postMessage({message: "Update", player: player, resource: resourcesData[2].Name, value: CAmount});
+        sessionStorage.setItem("C", value);
 
         // Remove money error
         if (moneyResult >= 0) {
@@ -267,6 +349,7 @@ CValueInput.addEventListener('input', function(event) {
 
     // Broadcast
     adminChannel.postMessage({message: "Update", player: player, resource: resourcesData[2].Name, value: CAmount});
+    sessionStorage.setItem("C", value);
 
     // Check for negative money error
     if (moneyResult < 0) {
@@ -308,6 +391,7 @@ DValueInput.addEventListener('input', function(event) {
         
         // Broadcast
         adminChannel.postMessage({message: "Update", player: player, resource: resourcesData[3].Name, value: DAmount});
+        sessionStorage.setItem("C", value);
 
         // Remove money error
         if (moneyResult >= 0) {
@@ -339,7 +423,8 @@ DValueInput.addEventListener('input', function(event) {
 
     // Broadcast
     adminChannel.postMessage({message: "Update", player: player, resource: resourcesData[3].Name, value: DAmount});
-    
+    sessionStorage.setItem("C", value);
+
     // Check for negative money error
     if (moneyResult < 0) {
         moneyIsNegative = true;
@@ -347,9 +432,8 @@ DValueInput.addEventListener('input', function(event) {
     } 
 });
 
-// Change player on click of submit
-let submitButton = document.getElementById('submit');
-
+// Submit
+const submitButton = document.getElementById('submit');
 submitButton.addEventListener('click', function(event) {
     // Check for error
     if (moneyIsNegative) {
@@ -362,16 +446,55 @@ submitButton.addEventListener('click', function(event) {
     BValueInput.disabled = true;
     DValueInput.disabled = true;
     CValueInput.disabled = true;
+
+    // Set storage
+    sessionStorage.setItem("Done", true);
+    sessionStorage.setItem("A", AValueInput.value);
+    sessionStorage.setItem("B", BValueInput.value);
+    sessionStorage.setItem("C", CValueInput.value);
+    sessionStorage.setItem("D", DValueInput.value);
+
+    // Update resources
+    xhr.open("POST", "../../Includes/UpdateResources.php", false);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(JSON.stringify({ playersData: playersData, player: player }));
+});
+
+// Reset
+const resetButton = document.getElementById('reset');
+resetButton.addEventListener('click', (event) => {
+    // Enable inputs
+    AValueInput.disabled = false;
+    BValueInput.disabled = false;
+    DValueInput.disabled = false;
+    CValueInput.disabled = false;
+
+    // Reset form
+    if (sessionStorage.getItem("Done") != null) {
+        sessionStorage.removeItem("Done");
+    }
+    resetForm(Number(AValueInput.value), Number(BValueInput.value), Number(CValueInput.value), Number(DValueInput.value), true);
+    
+    // Reset inputs
+    AValueInput.value = "";
+    BValueInput.value = "";
+    CValueInput.value = "";
+    DValueInput.value = "";
+
+    // Reset buffors
+    AInputLenght = 0;
+    AInputBuffor = 0;
+    BInputLenght = 0;
+    BInputBuffor = 0;
+    CInputLenght = 0;
+    CInputBuffor = 0;
+    DInputLenght = 0;
+    DInputBuffor = 0;
 });
 
 // Channels listeners
 adminChannel.addEventListener('message', (event) => {
     if(event.data === "GoToGoodsMarket") {
-        // Update resources
-        xhr.open("POST", "../../Includes/UpdateResources.php", false);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.send(JSON.stringify({ playersData: playersData, player: player }));
-
         // Generate token and switch pages
         xhr.open("POST", "../../Includes/GenerateToken.php", false);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");

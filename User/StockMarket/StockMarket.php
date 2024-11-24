@@ -11,7 +11,7 @@
 </head>
 
 <?php include '../../Includes/ShareDatabase.php'; ?>
-<?php include '../../Includes/LoadOffers.php'; ?>
+<?php include '../../Includes/LoadOfferts.php'; ?>
 <?php include '../../Includes/Header/Header.php'; ?>
 
 <body>

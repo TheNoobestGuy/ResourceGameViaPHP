@@ -17,6 +17,8 @@ if (sessionStorage.getItem('WaitRoom')) {
     location.reload();
 }
 
+sessionStorage.clear();
+
 // Error
 const passwordDiv = document.getElementById('passwordDiv');
 const error = document.getElementById('error');

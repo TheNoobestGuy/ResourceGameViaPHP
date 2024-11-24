@@ -9,13 +9,34 @@ html, body {
 }
 
 #title {
-    margin-top: 1%;
-    margin-bottom: 1%;
+    margin-top: 1.5%;
+    margin-bottom: 1.5%;
+}
+
+#menu {
+    list-style-type: none;
+    display: inline-block;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+#menu li {
+    display: inline-block;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+#gameID {
+    margin-top: 1.5%;
+    margin-bottom: 1.5%;
 }
 
 input {
     text-align: center;
+    margin-right: 10px;
 }
+
 button {
     background-color: darkblue;
     color: white;

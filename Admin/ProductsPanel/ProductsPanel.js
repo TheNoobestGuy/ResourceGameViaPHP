@@ -123,6 +123,11 @@ function makeReady(player) {
     message.textContent = `Ready!`;
 }
 
+function makeNotReady(player) {
+    const message = document.getElementById(`ready${player}`);
+    message.textContent = `Not ready!`;
+}
+
 // Draw everything
 drawTables();
 drawMenu();
@@ -135,7 +140,7 @@ submit.addEventListener('click', (event) => {
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send(`player=${player}`);
 
-    let respone = JSON.parse(xhr.responseText)
+    let respone = JSON.parse(xhr.responseText);
     window.location.href = `http://localhost/Admin/StockPanel/StockPanel.php?player=${player}&token=${respone.token}`;
     adminChannel.postMessage("GoToStockMarket");
 });
@@ -147,6 +152,9 @@ adminChannel.addEventListener('message', (event) => {
     }
     else if(event.data.message === "Ready") {
         makeReady(event.data.player);
+    }
+    else if(event.data.message === "NotReady") {
+        makeNotReady(event.data.player);
     }
 });
 

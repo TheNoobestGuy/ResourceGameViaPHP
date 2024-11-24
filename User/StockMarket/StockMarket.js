@@ -29,7 +29,7 @@ let Ynegative = false;
 let Znegative = false;
 const error = [];
 
-// Function that creates row for offers
+// Function that creates row for offerts
 function createRow(player, amount, price, product) {
     if (!Xnegative && !Ynegative && !Znegative) {
         const productTable = document.getElementById(`table${product}`);
@@ -55,6 +55,23 @@ function createRow(player, amount, price, product) {
             
             adminChannel.postMessage({message: "Delete", product: product, 
                 player: player, amount: amount, price: price});
+
+            const goodAmount = document.getElementById(`player${product}`);
+
+            if(product == 'X') {
+                playersData[player].Good_X = Number(playersData[player].Good_X) + Number(row.cells[1].textContent);
+                goodAmount.innerHTML = playersData[player].Good_X;
+            }
+            else if(product == 'Y') {
+                playersData[player].Good_Y = Number(playersData[player].Good_Y) + Number(row.cells[1].textContent);
+                goodAmount.innerHTML = playersData[player].Good_Y;
+            }
+            else {
+                playersData[player].Good_Z = Number(playersData[player].Good_Z) + Number(row.cells[1].textContent);
+                goodAmount.innerHTML = playersData[player].Good_Z;
+            }
+
+            updateGoods();
         }
         closeCell.appendChild(newButton);
     }
@@ -105,89 +122,23 @@ function createString(typedText) {
     return buffor;
 }
 
-// Show offers
+// Show offerts
 const tableX = document.getElementById('tableX');
-for(let i = 0; i < offersX.length; i++) {
-    const newRow = tableX.insertRow()
-
-    const playerCell = newRow.insertCell(0);
-    const amountCell = newRow.insertCell(1);
-    const priceCell = newRow.insertCell(2);
-    const closeCell = newRow.insertCell(3);
-
-    playerCell.textContent = Number(offersX[i].Player+1);
-    amountCell.textContent = offersX[i].Amount;
-    priceCell.textContent = `${offersX[i].Price}$`;
-
-    // Button for withdrawing an offer
-    const newButton = document.createElement('button');
-    newButton.textContent = "X";
-    newButton.onclick = function () {
-        const row = this.closest('tr');
-        const table = row.parentNode;
-        table.removeChild(row);
-        
-        adminChannel.postMessage({message: "Delete", product: offersX[i].Product, 
-            player: player, amount: offersX[i].Amount, price: offersX[i].Price});
-    }
-    closeCell.appendChild(newButton);
+for(let i = 0; i < offertsX.length; i++) {
+    createRow(offertsX[i].Player, offertsX[i].Amount, offertsX[i].Price, offertsX[i].Product);
 }
 
 const tableY = document.getElementById('tableY');
-for(let i = 0; i < offersY.length; i++) {
-    const newRow = tableY.insertRow()
-
-    const playerCell = newRow.insertCell(0);
-    const amountCell = newRow.insertCell(1);
-    const priceCell = newRow.insertCell(2);
-    const closeCell = newRow.insertCell(3);
-
-    playerCell.textContent = Number(offersY[i].Player+1);
-    amountCell.textContent = offersY[i].Amount;
-    priceCell.textContent = `${offersY[i].Price}$`;
-    
-    // Button for withdrawing an offer
-    const newButton = document.createElement('button');
-    newButton.textContent = "X";
-    newButton.onclick = function () {
-        const row = this.closest('tr');
-        const table = row.parentNode;
-        table.removeChild(row);
-        
-        adminChannel.postMessage({message: "Delete", product: offersY[i].Product, 
-            player: player, amount: offersY[i].Amount, price: offersY[i].Price});
-    }
-    closeCell.appendChild(newButton);
+for(let i = 0; i < offertsY.length; i++) {
+    createRow(offertsY[i].Player, offertsY[i].Amount, offertsY[i].Price, offertsY[i].Product);
 }
 
 const tableZ = document.getElementById('tableZ');
-for(let i = 0; i < offersZ.length; i++) {
-    const newRow = tableZ.insertRow()
-
-    const playerCell = newRow.insertCell(0);
-    const amountCell = newRow.insertCell(1);
-    const priceCell = newRow.insertCell(2);
-    const closeCell = newRow.insertCell(3);
-
-    playerCell.textContent = Number(offersZ[i].Player+1);
-    amountCell.textContent = offersZ[i].Amount;
-    priceCell.textContent = `${offersZ[i].Price}$`;
-
-    // Button for withdrawing an offer
-    const newButton = document.createElement('button');
-    newButton.textContent = "X";
-    newButton.onclick = function () {
-        const row = this.closest('tr');
-        const table = row.parentNode;
-        table.removeChild(row);
-        
-        adminChannel.postMessage({message: "Delete", product: offersZ[i].Product, 
-            player: player, amount: offersZ[i].Amount, price: offersZ[i].Price});
-    }
-    closeCell.appendChild(newButton);
+for(let i = 0; i < offertsZ.length; i++) {
+    createRow(offertsZ[i].Player, offertsZ[i].Amount, offertsZ[i].Price, offertsZ[i].Product);
 }
 
-// X product offers
+// X product offerts
 let XInputLenght = 0;
 let XInputBuffor = 0;
 
@@ -254,13 +205,14 @@ SendX.addEventListener('click', function(event) {
         updateGoods();
         adminChannel.postMessage({message: "Update", product: 'X', 
             player: player, amount: Xamount.value, price: Xprice.value});
-
+        
+        XInputBuffor = 0;
         Xamount.value = "";
         Xprice.value = "";
     }
 });
 
-// Y product offers
+// Y product offerts
 let YInputLenght = 0;
 let YInputBuffor = 0;
 
@@ -329,12 +281,13 @@ SendY.addEventListener('click', function(event) {
         adminChannel.postMessage({message: "Update", product: 'Y', 
             player: player, amount: Yamount.value, price: Yprice.value});
         
+        YInputBuffor = 0;
         Yamount.value = "";
         Yprice.value = "";
     }
 });
 
-// Z product offers
+// Z product offerts
 let ZInputLenght = 0;
 let ZInputBuffor = 0;
 
@@ -403,6 +356,7 @@ SendZ.addEventListener('click', function(event) {
         adminChannel.postMessage({message: "Update", product: 'Z', 
             player: player, amount: Zamount.value, price: Zprice.value});
         
+        ZInputBuffor = 0;
         Zamount.value = "";
         Zprice.value = "";
     }
@@ -410,7 +364,13 @@ SendZ.addEventListener('click', function(event) {
 
 // Channels listeners
 adminChannel.addEventListener('message', (event) => {
-    if(event.data === "GoToStockMarket") {
+    if(event.data === "GoToResults") {
+        // Generate token and switch pages
+        xhr.open("POST", "../../Includes/GenerateToken.php", false);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send(`player=${player}`);
 
+        let respone = JSON.parse(xhr.responseText);
+        window.location.href = `http://localhost/Statistics/Statistics.php?player=${player}&token=${respone.token}`;
     }
 });

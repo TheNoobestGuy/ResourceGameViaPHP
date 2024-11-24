@@ -31,7 +31,7 @@ const productXpointsY = [];
 const productYpointsY = [];
 const productZpointsY = [];
 
-for (let i = 0; i <= 200; i+=2) {
+for (let i = 0; i <= 200; i+=5) {
     pointsX.push(i);
 }
 
@@ -100,47 +100,74 @@ const config = {
     }
 };
 
+// Export stock informations
+function exportStockInfo() {
+    const stockData = [];
+
+    // Export the data
+    for(let i = 0; i < productXpointsY.length; i++) {
+        stockData.push(['X', productXpointsY[i], pointsX[i]]);
+    }
+    stockData[stockData.length-1][1] = 0;
+
+    for(let i = 0; i < productYpointsY.length; i++) {
+        stockData.push(['Y', productYpointsY[i], pointsX[i]]);
+    }
+    stockData[stockData.length-1][1] = 0;
+    
+    for(let i = 0; i < productZpointsY.length; i++) {
+        stockData.push(['Z', productZpointsY[i], pointsX[i]]);
+    }
+    stockData[stockData.length-1][1] = 0;
+
+    // Send stock informations
+    xhr.open("POST", "../../Includes/UpdateStock.php", false);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(JSON.stringify({ stockData: stockData }));
+}
+
 // Create the chart
 const myChart = new Chart(ctx, config);
+exportStockInfo();
 
-// Show offers
+// Show offerts
 const tableX = document.getElementById('tableX');
-for(let i = 0; i < offersX.length; i++) {
+for(let i = 0; i < offertsX.length; i++) {
     const newRow = tableX.insertRow()
 
     const playerCell = newRow.insertCell(0);
     const amountCell = newRow.insertCell(1);
     const priceCell = newRow.insertCell(2);
 
-    playerCell.textContent = Number(offersX[i].Player+1);
-    amountCell.textContent = offersX[i].Amount;
-    priceCell.textContent = `${offersX[i].Price}$`;
+    playerCell.textContent = Number(offertsX[i].Player+1);
+    amountCell.textContent = offertsX[i].Amount;
+    priceCell.textContent = `${offertsX[i].Price}$`;
 }
 
 const tableY = document.getElementById('tableY');
-for(let i = 0; i < offersY.length; i++) {
+for(let i = 0; i < offertsY.length; i++) {
     const newRow = tableY.insertRow()
 
     const playerCell = newRow.insertCell(0);
     const amountCell = newRow.insertCell(1);
     const priceCell = newRow.insertCell(2);
 
-    playerCell.textContent = Number(offersY[i].Player+1);
-    amountCell.textContent = offersY[i].Amount;
-    priceCell.textContent = `${offersY[i].Price}$`;
+    playerCell.textContent = Number(offertsY[i].Player+1);
+    amountCell.textContent = offertsY[i].Amount;
+    priceCell.textContent = `${offertsY[i].Price}$`;
 }
 
 const tableZ = document.getElementById('tableZ');
-for(let i = 0; i < offersZ.length; i++) {
+for(let i = 0; i < offertsZ.length; i++) {
     const newRow = tableZ.insertRow()
 
     const playerCell = newRow.insertCell(0);
     const amountCell = newRow.insertCell(1);
     const priceCell = newRow.insertCell(2);
 
-    playerCell.textContent = Number(offersZ[i].Player+1);
-    amountCell.textContent = offersZ[i].Amount;
-    priceCell.textContent = `${offersZ[i].Price}$`;
+    playerCell.textContent = Number(offertsZ[i].Player+1);
+    amountCell.textContent = offertsZ[i].Amount;
+    priceCell.textContent = `${offertsZ[i].Price}$`;
 }
 
 // Submit button 
@@ -151,12 +178,12 @@ submit.addEventListener('click', (event) => {
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send(`player=${player}`);
 
-    let respone = JSON.parse(xhr.responseText)
-    window.location.href = `http://localhost/Admin/StockPanel/StockPanel.php?player=${player}&token=${respone.token}`;
+    let respone = JSON.parse(xhr.responseText);
+    window.location.href = `http://localhost/Statistics/Statistics.php?player=${player}&token=${respone.token}`;
     adminChannel.postMessage("GoToResults");
 });
 
-// Function for database update of offers
+// Function for database update of offerts
 function sendOffer(player, product, amount, price) {
     xhr.open("POST", "../../Includes/SendOffer.php", false);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -169,7 +196,7 @@ function withdrawOffer(player, product, amount, price) {
     xhr.send(`player=${player}&product=${product}&amount=${amount}&price=${price}`);
 }
 
-// Function for update of offers
+// Function for update of offerts
 function appendOffer(player, product, amount, price) {
     const table = document.getElementById(`table${product}`);
     const newRow = table.insertRow();

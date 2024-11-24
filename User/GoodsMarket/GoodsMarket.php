@@ -97,6 +97,7 @@
     </div>
 
     <button class="button" id="submit">Done</button>
+    <button class="button" id="reset">Reset</button>
 
     <script src="../GoodsMarket/GoodsMarket.js"></script>
 </body>

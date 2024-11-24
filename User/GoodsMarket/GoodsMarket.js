@@ -19,6 +19,88 @@ const inputLimit = 9999;
 const negativeResources = document.getElementById('negativeResources');
 let resourcesNegativeError = false;
 
+// Reset values
+let reset = false;
+let X = 0;
+let Y = 0;
+let Z = 0;
+
+function resetForm(X, Y, Z, undo) {
+    if(undo) {
+        // Reset resources for X
+        playersData[player].Resource_A = Number(playersData[player].Resource_A) + (X * Number(goodsData[0].Cost_A));
+        playersData[player].Resource_B = Number(playersData[player].Resource_B) + (X * Number(goodsData[0].Cost_B));
+        playersData[player].Resource_C = Number(playersData[player].Resource_C) + (X * Number(goodsData[0].Cost_C));
+        playersData[player].Resource_D = Number(playersData[player].Resource_D) + (X * Number(goodsData[0].Cost_D));
+
+        // Reset resources for Y
+        playersData[player].Resource_A = Number(playersData[player].Resource_A) + (Y * Number(goodsData[1].Cost_A));
+        playersData[player].Resource_B = Number(playersData[player].Resource_B) + (Y * Number(goodsData[1].Cost_B));
+        playersData[player].Resource_C = Number(playersData[player].Resource_C) + (Y * Number(goodsData[1].Cost_C));
+        playersData[player].Resource_D = Number(playersData[player].Resource_D) + (Y * Number(goodsData[1].Cost_D));
+
+        // Reset resources for Z
+        playersData[player].Resource_A = Number(playersData[player].Resource_A) + (Z * Number(goodsData[2].Cost_A));
+        playersData[player].Resource_B = Number(playersData[player].Resource_B) + (Z * Number(goodsData[2].Cost_B));
+        playersData[player].Resource_C = Number(playersData[player].Resource_C) + (Z * Number(goodsData[2].Cost_C));
+        playersData[player].Resource_D = Number(playersData[player].Resource_D) + (Z * Number(goodsData[2].Cost_D));
+
+        // Reset goods
+        playersData[player].Good_X = Number(playersData[player].Good_X - X);
+        playersData[player].Good_Y = Number(playersData[player].Good_Y - Y);
+        playersData[player].Good_Z = Number(playersData[player].Good_Z - Z);
+
+        // Reset layout
+        playerA.innerHTML = `${playersData[player].Resource_A}`;
+        playerB.innerHTML = `${playersData[player].Resource_B}`;
+        playerC.innerHTML = `${playersData[player].Resource_C}`;
+        playerD.innerHTML = `${playersData[player].Resource_D}`;
+
+        // Update resources
+        xhr.open("POST", "../../Includes/UpdateResources.php", false);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(JSON.stringify({ playersData: playersData, player: player }));
+        
+        // Update goods
+        xhr.open("POST", "../../Includes/UpdateProducts.php", false);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(JSON.stringify({ playersData: playersData, player: player })); 
+    }
+
+    // Update
+    adminChannel.postMessage({message: "NotReady", player: player});
+    adminChannel.postMessage({message: "Update", player: player, product: goodsData[0].Name, value: playersData[player].Good_X});
+    adminChannel.postMessage({message: "Update", player: player, product: goodsData[1].Name, value: playersData[player].Good_Y});
+    adminChannel.postMessage({message: "Update", player: player, product: goodsData[2].Name, value: playersData[player].Good_Z});
+}
+
+if (sessionStorage.getItem("X") != null) {
+    X = Number(sessionStorage.getItem("X"))
+    sessionStorage.removeItem("X");
+    reset = true;
+}
+if (sessionStorage.getItem("Y") != null) {
+    Y = Number(sessionStorage.getItem("Y"));
+    sessionStorage.removeItem("Y");
+    reset = true;
+}
+if (sessionStorage.getItem("Z") != null) {
+    Z = Number(sessionStorage.getItem("Z"));
+    sessionStorage.removeItem("Z");
+    reset = true;
+}
+
+if(reset) {
+    if(sessionStorage.getItem("Done") != null) {
+        resetForm(Number(X), Number(Y), Number(Z), true);
+        sessionStorage.clear();
+    }
+    else {
+        resetForm(X, Y, Z, false);
+    }
+    reset = false;
+}
+
 // Numbers table for fruther validation of input and converter
 let numbers = ['0', '1', '2', '3', '4' ,'5', '6', '7', '8', '9'];
 
@@ -105,6 +187,7 @@ XValueInput.addEventListener('input', function(event) {
         
         // Broadcast
         adminChannel.postMessage({message: "Update", player: player, product: goodsData[0].Name, value: value});
+        sessionStorage.setItem('X', value);
 
         // Erease error
         let ANegativeValue = bufforA < 0 ? true : false;
@@ -156,6 +239,7 @@ XValueInput.addEventListener('input', function(event) {
 
     // Broadcast
     adminChannel.postMessage({message: "Update", player: player, product: goodsData[0].Name, value: value});
+    sessionStorage.setItem('X', value);
 
     // Check for errors
     let ANegativeValue = AAmount < 0 ? true : false;
@@ -217,6 +301,7 @@ YValueInput.addEventListener('input', function(event) {
         
         // Broadcast
         adminChannel.postMessage({message: "Update", player: player, product: goodsData[1].Name, value: value});
+        sessionStorage.setItem('Y', value);
 
         // Erease error
         let ANegativeValue = bufforA < 0 ? true : false;
@@ -268,6 +353,7 @@ YValueInput.addEventListener('input', function(event) {
 
     // Broadcast
     adminChannel.postMessage({message: "Update", player: player, product: goodsData[1].Name, value: value});
+    sessionStorage.setItem('Y', value);
 
     // Check for errors
     let ANegativeValue = AAmount < 0 ? true : false;
@@ -329,6 +415,7 @@ ZValueInput.addEventListener('input', function(event) {
 
         // Broadcast
         adminChannel.postMessage({message: "Update", player: player, product: goodsData[2].Name, value: value});
+        sessionStorage.setItem('Z', value);
 
         // Erease error
         let ANegativeValue = bufforA < 0 ? true : false;
@@ -380,6 +467,7 @@ ZValueInput.addEventListener('input', function(event) {
 
     // Broadcast
     adminChannel.postMessage({message: "Update", player: player, product: goodsData[2].Name, value: value});
+    sessionStorage.setItem('Z', value);
 
     // Check for errors
     let ANegativeValue = AAmount < 0 ? true : false;
@@ -393,7 +481,7 @@ ZValueInput.addEventListener('input', function(event) {
     }
 });
 
-// Change player on click of submit
+// Submit
 let submitButton = document.getElementById('submit');
 
 submitButton.addEventListener('click', function(event) {
@@ -407,16 +495,56 @@ submitButton.addEventListener('click', function(event) {
     XValueInput.disabled = true;
     YValueInput.disabled = true;
     ZValueInput.disabled = true;
+
+    // Set storage
+    sessionStorage.setItem("Done", true);
+    sessionStorage.setItem("X", XValueInput.value);
+    sessionStorage.setItem("Y", YValueInput.value);
+    sessionStorage.setItem("C", ZValueInput.value);
+
+    // Update resources
+    xhr.open("POST", "../../Includes/UpdateResources.php", false);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(JSON.stringify({ playersData: playersData, player: player }));
+
+    // Update products
+    xhr.open("POST", "../../Includes/UpdateProducts.php", false);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(JSON.stringify({ playersData: playersData, player: player }));     
 });
+
+// Reset
+const resetButton = document.getElementById('reset');
+resetButton.addEventListener('click', (event) => {
+    // Enable inputs
+    XValueInput.disabled = false;
+    YValueInput.disabled = false;
+    ZValueInput.disabled = false;
+
+    // Reset form
+    if (sessionStorage.getItem("Done") != null) {
+        sessionStorage.removeItem("Done");
+    }
+    resetForm(Number(XValueInput.value), Number(YValueInput.value), Number(ZValueInput.value), true);
+    
+    // Reset inputs
+    XValueInput.value = "";
+    YValueInput.value = "";
+    ZValueInput.value = "";
+
+    // Reset buffors
+    XInputLenght = 0;
+    XValueBuffor = 0;
+    YInputLenght = 0;
+    YValueBuffor = 0;
+    ZInputLenght = 0;
+    ZValueBuffor = 0;
+});
+
 
 // Channels listeners
 adminChannel.addEventListener('message', (event) => {
     if(event.data === "GoToStockMarket") {
-        // Update products
-        xhr.open("POST", "../../Includes/UpdateProducts.php", false);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.send(JSON.stringify({ playersData: playersData, player: player }));
-        
         // Generate token and switch pages
         xhr.open("POST", "../../Includes/GenerateToken.php", false);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");

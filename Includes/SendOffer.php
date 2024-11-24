@@ -16,7 +16,7 @@
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         // Update database
-        $stmt = $conn->prepare("INSERT INTO Offers (Player, Product, Amount, Price) VALUES ('$player', '$product', '$amount', '$price')");
+        $stmt = $conn->prepare("INSERT INTO Offerts (Player, Product, Amount, Price) VALUES ('$player', '$product', '$amount', '$price')");
         $stmt->execute();
     }
     catch(PDOException $e) {

@@ -12,7 +12,7 @@
 </head>
 
 <?php include '../../Includes/ShareDatabase.php'; ?>
-<?php include '../../Includes/LoadOffers.php'; ?>
+<?php include '../../Includes/LoadOfferts.php'; ?>
 <?php include '../../Includes/Header/Header.php'; ?>
 
 <body>
@@ -30,7 +30,7 @@
 
     <div id="tables">
         <div>
-            <h2><?php echo "Offers for " . $goodsData[0]['Name'] . ":"; ?></h2>
+            <h2><?php echo "Offerts for " . $goodsData[0]['Name'] . ":"; ?></h2>
             <table id="tableX">
                 <thead>
                     <th>Player</th>
@@ -41,7 +41,7 @@
             </table>
         </div>
         <div>
-            <h2><?php echo "Offers for " . $goodsData[1]['Name'] . ":"; ?></h2>
+            <h2><?php echo "Offerts for " . $goodsData[1]['Name'] . ":"; ?></h2>
             <table id="tableY">
                 <thead>
                     <th>Player</th>
@@ -52,7 +52,7 @@
             </table>
         </div>
         <div>
-            <h2><?php echo "Offers for " . $goodsData[2]['Name'] . ":"; ?></h2>
+            <h2><?php echo "Offerts for " . $goodsData[2]['Name'] . ":"; ?></h2>
             <table id="tableZ">
                 <thead>
                     <th>Player</th>
