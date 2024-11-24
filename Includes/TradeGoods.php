@@ -73,7 +73,7 @@
                             $modulo = $price % 10;
                             
                             if (abs($priceBuffor - $price) <= 10) {
-                                if (($modulo > 5 && $modulobuffor > 5) || ($modulo == 0 && $modulobuffor == 0)) {
+                                if (($modulo > 5 && $modulobuffor > 5) || ($modulo == 0 || $modulobuffor == 0)) {
                                     $similar = true;
                                 }
                                 else if (($modulo <= 5 && $modulobuffor <= 5) && ($modulo != 0 && $modulobuffor != 0)) {
@@ -91,16 +91,15 @@
                 // Determine how much of a product is going to be sold as defined cost and how much will be sold lesser
                 $demandForOffer = 0;
                 $indexInStock = 0;
-                $indexInStockBuffor = 0;
 
                 for ($l = 0; $l < count($stockData); $l++ ) {
                     if ($offertsToSplitDemand[0][1] == $stockData[$l]['Product']) {
-                        if ((abs($offertsToSplitDemand[0][3] - $stockData[$l]['Price']) <= 10) && (abs($offertsToSplitDemand[0][3] - $stockData[$l]['Price']) >= 0)) {
+                        if ((abs($offertsToSplitDemand[0][3] - $stockData[$l]['Price']) < 10) && (abs($offertsToSplitDemand[0][3] - $stockData[$l]['Price']) >= 0)) {
                             $valid = false;
                             $modulo = $offertsToSplitDemand[0][3] % 10;
                             $modulobuffor = $stockData[$l]['Price'] % 10;
                             
-                            if (($modulo > 5 && $modulobuffor > 5) || ($modulo == 0 && $modulobuffor == 0)) {
+                            if (($modulo > 5 && $modulobuffor > 5) || ($modulo == 0 || $modulobuffor == 0)) {
                                 $valid = true;
                             }
                             else if (($modulo <= 5 && $modulobuffor <= 5) && ($modulo != 0 && $modulobuffor != 0)) {
@@ -108,12 +107,16 @@
                             }
 
                             if ($valid) {
-                                $index = $l;    
-                                while($stockData[$index]['Demand'] <= 0) {
-                                    $index--;
+                                $index = $l+1;    
+                                while($stockData[$index]['Price'] < $playersOfferts[$i][$j]['Price']) {
+                                    $index++;
                                 }
 
                                 $demandForOffer = $stockData[$index]['Demand'];
+                                if ($offertsToSplitDemand[0][3] > $stockData[$index]['Price'])  {
+                                    $offertsToSplitDemand[0][3] = $stockData[$index]['Price'];
+                                }
+                        
                                 $indexInStock = $index;
                                 break; 
                             }
@@ -123,37 +126,53 @@
                 
                 // Split share of demand
                 $sumOfoffertsForThreshold = 0;
-                for($h = 0; $h < count($offertsToSplitDemand); $h++ ) {
+                for($h = 0; $h < count($offertsToSplitDemand); $h++) {
                     $sumOfoffertsForThreshold += $offertsToSplitDemand[$h][2];
                 }
 
-                $shareForOffer = (double)($offertsToSplitDemand[0][2] / $sumOfoffertsForThreshold);
-                $whatCanBeSell = (int)ceil(($demandForOffer * $shareForOffer));
-                $toSell = ($whatCanBeSell - $offertsToSplitDemand[0][2]);
-                $sell = 0;
-                if ($toSell < 0) {
-                    $sell = $offertsToSplitDemand[0][2] + $toSell;
+                $shareForOffer = number_format($offertsToSplitDemand[0][2] / $sumOfoffertsForThreshold, 1);
+                $buffor = $demandForOffer;
+
+                if ($sumOfoffertsForThreshold < $demandForOffer) {
+                    $buffor = $sumOfoffertsForThreshold;
                 }
-                else {
-                    $sell = $offertsToSplitDemand[0][2];
+
+                $whatCanBeSell = $buffor * $shareForOffer;
+
+                // Prefer lower prices
+                if($whatCanBeSell < 1 && $whatCanBeSell > 0) {
+                    $value = $offertsToSplitDemand[0][3];  
+                    $IsNotLowest = false;
+                    for($h = 0; $h < count($offertsToSplitDemand); $h++) {
+                        if ($value > $offertsToSplitDemand[$h][3]) {
+                            $IsNotLowest = true;
+                            break;
+                        }
+                    }
+
+                    if ($IsNotLowest) {
+                        $whatCanBeSell = 0;
+                    }
+                    else {
+                        $whatCanBeSell = 1;
+                    }
                 }
+
+                $whatCanBeSell = ceil($whatCanBeSell);
 
                 // Sell product
-                if ($indexInStockBuffor != $indexInStock) {
-                    $eranedMoney += $sell * $stockData[$indexInStock]['Price'];
+                $playersOfferts[$i][$j]['Amount'] -= $whatCanBeSell;
+                if ($playersOfferts[$i][$j]['Amount'] < 0) {
+                    $whatCanBeSell -= $playersOfferts[$i][$j]['Amount'];
+                    $playersOfferts[$i][$j]['Amount'] = 0;
                 }
-                else {
-                    $eranedMoney += $sell * $offertsToSplitDemand[0][3];
-                }
+
+                $eranedMoney += ($whatCanBeSell * $offertsToSplitDemand[0][3]);
 
                 // Update database and check does eveything was sold or not
-                $stockData[$indexInStock]['Demand'] -= $sell;
-                $playersOfferts[$i][$j]['Amount'] -= $sell;
-                $playersOfferts[$i][$j]['Price'] = $stockData[$indexInStock]['Price'];
-                $everythingSold = ($offertsToSplitDemand[0][3] - $sell) >= 0 ? true : false;
-                echo "Earned money: " . $playersOfferts[$i][$j]['Amount'] . "";
-
+                $stockData[$indexInStock]['Demand'] -= $whatCanBeSell;
                 if ($playersOfferts[$i][$j]['Amount'] > 0) {
+                    $playersOfferts[$i][$j]['Price'] = $stockData[$indexInStock-1]['Price'];
                     $j--;
                 }
             }

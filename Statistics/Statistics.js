@@ -3,6 +3,8 @@ const adminChannel = new BroadcastChannel('resource_game_admin');
 const usersChannel = new BroadcastChannel('resource_game_users');
 const xhr = new XMLHttpRequest();
 
+sessionStorage.clear();
+
 // Admin
 const submitButton = document.getElementById('submit');
 const admin = playersData[player].Admin == 1 ? true : false;
