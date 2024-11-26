@@ -77,6 +77,13 @@ try {
     )";
     $conn->exec($sql);
 
+    // Create game table
+    $sql = "CREATE TABLE Game (
+        ID INT AUTO_INCREMENT PRIMARY KEY,
+        Round INT DEFAULT 1
+    )";
+    $conn->exec($sql);
+
     // Fill database
     for($i = 0; $i < 4; $i++) {
         $password = "player" .(string)($i + 1);
@@ -104,6 +111,10 @@ try {
     $conn->exec($sql);
     $sql = "INSERT INTO Goods (Name, Cost_A, Cost_B, Cost_C, Cost_D) VALUES ('Z', 1, 3, 1, 5)";
     $conn->exec($sql);
+    
+    $sql = "INSERT INTO Game (Round) VALUES (1)";
+    $conn->exec($sql);
+
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
 }
@@ -126,18 +137,12 @@ $conn = null;
 <?php include 'Includes/Header/Header.php'; ?>
 
 <body>
-    <h2 id="title">You are in lobby! Send someone inventation!</h2>
-
-    <div id="gameID">
-        <input disabled="true">
-        <button>Copy</button>
-    </div>
 
     <h2 id="title">Log as:</h2>
 
     <ul id="menu">
-        <li><button>Admin</button></li>
-        <li><button>Player</button></li>
+        <li><button id="admin">Admin</button></li>
+        <li><button id="player">Player</button></li>
     </ul>
 
     <script src="Start.js"></script>

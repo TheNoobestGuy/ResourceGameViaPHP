@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stock Panel</title>
+    <title>Statistics</title>
     <link rel="stylesheet" href="../Includes/Header/Header.css">
     <link rel="stylesheet" href="../Includes/Footer/Footer.css">
     <link rel="stylesheet" href="../Statistics/Statistics.css">
@@ -12,6 +12,8 @@
 
 <?php include '../Includes/ShareDatabase.php'; ?>
 <?php include '../Includes/TradeGoods.php'; ?>
+<?php include '../Includes/UpdateRound.php'; ?>
+<?php include '../Includes/GetRound.php'; ?>
 <?php include '../Includes/Header/Header.php'; ?>
 
 <body>

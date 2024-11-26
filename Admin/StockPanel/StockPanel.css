@@ -22,10 +22,6 @@ html, body {
     gap: 40px;
 }
 
-#managmentPanel {
-    display: flex;
-}
-
 #chartPanel {
     display: flex;
     justify-items: center;

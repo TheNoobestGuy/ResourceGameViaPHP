@@ -1,0 +1,146 @@
+html, body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-align: center;
+    justify-content: center;
+    font-family: Georgia, 'Times New Roman', Times, serif
+}
+
+#title {
+    margin-bottom: 2%;
+}
+
+/* Podiums */
+.podium {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 70px;
+    font-weight: bold;
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+
+#podiumForTwoPlayers {
+    display: none;
+}
+
+#podiumForThreePlayers {
+    display: none;
+}
+
+.playerOnPodium {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-content: flex-end;
+}
+
+.playerOnPodium a {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+/* The blocks for at least 3 players */
+.Blocks {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+}
+
+.Blocks div {
+    display: inline-block;
+    width: 150px;
+    height: 150px;
+}
+
+/* The blocks that are at the top for at least 3 players */
+#upBlock {
+    display: block;
+    font-size: 30px;
+    font-weight: bold;
+    width: 150px;
+    margin-bottom: 5px;
+}
+
+#upBlockLeftText {
+    font-size: 30px;
+    font-weight: bold;
+    width: 150px;
+}
+
+#upBlockMiddle {
+    border-top: 5px solid darkblue;
+    border-right: 5px solid darkblue;
+    border-left: 5px solid darkblue;
+}
+
+#upBlockRightText {
+    display: block;
+    font-size: 30px;
+    font-weight: bold;
+    width: 150px;
+}
+
+/* The blocks that are at the bottom for at least 3 players */
+#downBlockLeft {
+    border-left: 5px solid darkblue;
+    border-top: 5px solid darkblue;
+    border-bottom: 5px solid darkblue;
+}
+
+#downBlockMiddle {
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid darkblue;
+}
+
+#downBlockRight {
+    border-right: 5px solid darkblue;
+    border-top: 5px solid darkblue;
+    border-bottom: 5px solid darkblue;
+}
+
+/* The blocks for at least 2 players */
+.BlocksTwo {
+    display: flex;
+    flex-direction: row;
+    width: 310px;
+    justify-content: center;
+}
+
+.BlocksTwo div {
+    display: inline-block;
+    width: 150px;
+    height: 150px;
+}
+
+/* The blocks that are at the top for at least 2 players */
+#upBlockTwoPlayers {
+    display: block;
+    font-size: 30px;
+    font-weight: bold;
+    width: 150px;
+    margin-bottom: 5px;
+    margin-right: 150px;
+}
+
+/* The blocks that are at the bottom for at least 2 players */
+#downBlockMiddleTwoPlayers {
+    height: 155px;
+    border-left: 5px solid darkblue;
+    border-bottom: 5px solid darkblue;
+}
+
+/* Submit button */
+#submit {
+    margin-top: 2%;
+    background-color: darkblue;
+    color: white;
+    border-radius: 5px;
+    padding: 10px;
+}

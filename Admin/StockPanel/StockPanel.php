@@ -19,10 +19,6 @@
     <h2 id="title">Stock Panel:</h2>
 
     <div id="functionsDiv">
-        <div id="managmentPanel">
-            <input>
-            <button>Check</button>
-        </div>
         <div id="chartPanel">
             <canvas id="chart" width="400" height="200"></canvas>
         </div>

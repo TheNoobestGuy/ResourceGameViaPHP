@@ -17,10 +17,6 @@
     <h2>Resources panel:</h2>
     <div id="tables"></div>
 
-    <h2 id="title">Change resources cost for next round:</h2>
-    <div id="menu">
-    </div>
-    
     <button id="submit">Submit</button>
 
     <script src="../../Admin/ResourcesPanel/ResourcesPanel.js"></script>

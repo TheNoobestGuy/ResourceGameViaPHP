@@ -17,10 +17,6 @@
     <h2>Products panel:</h2>
     <div id="tables"></div>
 
-    <h2 id="title">Change products resources cost for next round:</h2>
-    <div id="menu">
-    </div>
-    
     <button id="submit">Submit</button>
 
     <script src="../../Admin/ProductsPanel/ProductsPanel.js"></script>

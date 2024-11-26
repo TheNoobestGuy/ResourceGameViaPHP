@@ -107,25 +107,6 @@ function drawTables() {
     }
 }
 
-// Buttons
-function clickButton(player) {
-
-}
-
-function drawMenu() {
-    for (let i = 0; i < resourcesData.length; i++) {
-        const newLi = document.createElement('li');
-        const newButton = document.createElement('button');
-    
-        newButton.textContent = `Resource ${resourcesData[i].Name}`;
-        newButton.onclick = function () {
-            clickButton(playersData[i].ID - 1);
-        }
-        newLi.appendChild(newButton);
-        menu.appendChild(newLi);
-    }
-}
-
 // Update tables
 function refreshValues(player, resource, value) {
     const count = document.getElementById(`count${resource}${player}`);
@@ -144,7 +125,6 @@ function makeNotReady(player) {
 
 // Draw everything
 drawTables();
-drawMenu();
 
 // Submit button 
 const submit = document.getElementById('submit');

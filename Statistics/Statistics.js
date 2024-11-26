@@ -48,14 +48,28 @@ for (let i = 0; i < playersData.length; i++) {
 // Submit
 submitButton.addEventListener('click', function(event) {
     adminChannel.postMessage("GoToResourcesMarket");
+    
+    // Update resources
+    for(let i = 0; i < playersData.length-1; i++) {
+        if (playersData[i].InGame == 1) {
+            xhr.open("POST", "../Includes/UpdateResources.php", false);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send(JSON.stringify({ playersData: playersData, player: i }));
+        }
+    }
 
     // Generate token and switch pages
-    xhr.open("POST", "../../Includes/GenerateToken.php", false);
+    xhr.open("POST", "../Includes/GenerateToken.php", false);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send(`player=${player}`);
     
     let response = JSON.parse(xhr.responseText);
-    window.location.href = `http://localhost/Admin/ResourcesPanel/ResourcesPanel.php?player=${player}&token=${response.token}`;
+    if (round > 4) {
+        window.location.href = `http://localhost/EndGame/EndGame.php?player=${player}&token=${response.token}`;
+    }
+    else {
+        window.location.href = `http://localhost/Admin/ResourcesPanel/ResourcesPanel.php?player=${player}&token=${response.token}`;
+    }
 });
 
 // Channels listeners
